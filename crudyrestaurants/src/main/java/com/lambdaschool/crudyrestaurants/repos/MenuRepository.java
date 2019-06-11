@@ -1,5 +1,8 @@
 package com.lambdaschool.crudyrestaurants.repos;
 
-public interface MenuRepository
+import com.lambdaschool.crudyrestaurants.model.Menu;
+import org.springframework.data.repository.CrudRepository;
+
+public interface MenuRepository extends CrudRepository<Menu, Long>
 {
 }

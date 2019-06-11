@@ -3,6 +3,8 @@ package com.lambdaschool.crudyrestaurants;
 import com.lambdaschool.crudyrestaurants.model.Menu;
 import com.lambdaschool.crudyrestaurants.model.Restaurant;
 import com.lambdaschool.crudyrestaurants.repos.RestaurantRepository;
+import com.lambdaschool.crudyrestaurants.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +15,9 @@ import java.util.ArrayList;
 @Component
 public class SeedData implements CommandLineRunner
 {
-    private RestaurantRepository restaurantrepos;
+    @Autowired
+    RestaurantService restaurantService;
 
-    public SeedData(RestaurantRepository restaurantrepos)
-    {
-        this.restaurantrepos = restaurantrepos;
-    }
 
     @Override
     public void run(String[] args) throws Exception
@@ -34,7 +33,7 @@ public class SeedData implements CommandLineRunner
         r1.getMenus().add(new Menu("Tacos", 8.49, r1));
         r1.getMenus().add(new Menu("Chef Salad", 12.50, r1));
 
-        restaurantrepos.save(r1);
+        restaurantService.save(r1);
 
         String rest2Name = "Eagle Cafe";
         Restaurant r2 = new Restaurant(rest2Name,
@@ -43,7 +42,7 @@ public class SeedData implements CommandLineRunner
         r2.getMenus().add(new Menu("Tacos", 10.49, r2));
         r2.getMenus().add(new Menu("Barbacoa", 12.75, r2));
 
-        restaurantrepos.save(r2);
+        restaurantService.save(r2);
 
         String rest3Name = "Number 1 Eats";
         Restaurant r3 = new Restaurant(rest3Name,
@@ -51,6 +50,6 @@ public class SeedData implements CommandLineRunner
                 "Village", "ST", "555-123-1555");
         r3.getMenus().add(new Menu("Pizza", 15.15, r3));
 
-        restaurantrepos.save(r3);
+        restaurantService.save(r3);
     }
 }
