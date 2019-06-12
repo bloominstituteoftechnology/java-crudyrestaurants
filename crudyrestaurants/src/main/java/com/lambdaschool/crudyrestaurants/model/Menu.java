@@ -10,7 +10,7 @@ public class Menu
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long menuId;
+    private long menuid;
 
     @Column(nullable = false)
     private String dish;
@@ -33,14 +33,14 @@ public class Menu
         this.restaurant = restaurant;
     }
 
-    public long getMenuId()
+    public long getMenuid()
     {
-        return menuId;
+        return menuid;
     }
 
-    public void setMenuId(long menuId)
+    public void setMenuid(long menuid)
     {
-        this.menuId = menuId;
+        this.menuid = menuid;
     }
 
     public String getDish()
