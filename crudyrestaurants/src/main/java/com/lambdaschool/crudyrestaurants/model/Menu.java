@@ -19,14 +19,16 @@ public class Menu
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurantid",
                 nullable = false)
-    @JsonIgnoreProperties({"menu", "hibernateLazyInitializer"})
+    @JsonIgnoreProperties({"menus", "hibernateLazyInitializer"})
     private Restaurant restaurant;
 
     public Menu()
     {
     }
 
-    public Menu(String dish, double price, Restaurant restaurant)
+    public Menu(String dish,
+                double price,
+                Restaurant restaurant)
     {
         this.dish = dish;
         this.price = price;
@@ -71,5 +73,11 @@ public class Menu
     public void setRestaurant(Restaurant restaurant)
     {
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "\n\tMenu{" + "menuid=" + menuid + ", dish='" + dish + '\'' + ", price=" + price + ", restaurant id=" + restaurant.getRestaurantid() + ", restaurant name=" + restaurant.getName() + '}';
     }
 }

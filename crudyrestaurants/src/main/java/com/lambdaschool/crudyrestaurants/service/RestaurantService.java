@@ -16,5 +16,10 @@ public interface RestaurantService
 
     Restaurant save(Restaurant restaurant);
 
-    Restaurant update(Restaurant restaurant, long id);
+    Restaurant update(Restaurant restaurant,
+                      long id);
+
+    List<Restaurant> findByState(String state);
+
+    List<Restaurant> findByNameLike(String thename);
 }

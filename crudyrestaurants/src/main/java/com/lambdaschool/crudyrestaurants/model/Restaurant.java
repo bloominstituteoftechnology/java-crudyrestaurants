@@ -34,7 +34,11 @@ public class Restaurant
     {
     }
 
-    public Restaurant(String name, String address, String city, String state, String telephone)
+    public Restaurant(String name,
+                      String address,
+                      String city,
+                      String state,
+                      String telephone)
     {
         this.name = name;
         this.address = address;
@@ -111,5 +115,11 @@ public class Restaurant
     public void setMenus(List<Menu> menus)
     {
         this.menus = menus;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Restaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", menus=" + menus + '}';
     }
 }

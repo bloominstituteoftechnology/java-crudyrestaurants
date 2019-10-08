@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,9 +28,11 @@ public class RestaurantController
     public ResponseEntity<?> listAllRestaurants()
     {
         List<Restaurant> myRestaurants = restaurantService.findAll();
-        return new ResponseEntity<>(myRestaurants, HttpStatus.OK);
+        return new ResponseEntity<>(myRestaurants,
+                                    HttpStatus.OK);
     }
 
+    // http://localhost:2019/restaurants/restaurant/3
     @GetMapping(value = "/restaurant/{restaurantId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getRestaurantById(
@@ -37,10 +40,11 @@ public class RestaurantController
                     Long restaurantId)
     {
         Restaurant r = restaurantService.findRestaurantById(restaurantId);
-        return new ResponseEntity<>(r, HttpStatus.OK);
+        return new ResponseEntity<>(r,
+                                    HttpStatus.OK);
     }
 
-
+    // http://localhost:2019/restaurants/restaurant/name/Supreme%20Eats
     @GetMapping(value = "/restaurant/name/{name}",
                 produces = {"application/json"})
     public ResponseEntity<?> getRestaurantByName(
@@ -48,13 +52,30 @@ public class RestaurantController
                     String name)
     {
         Restaurant r = restaurantService.findRestaurantByName(name);
-        return new ResponseEntity<>(r, HttpStatus.OK);
+        return new ResponseEntity<>(r,
+                                    HttpStatus.OK);
     }
 
-
+    // http://localhost:2019/restaurants/restaurant
+    //        {
+    //            "name": "Good East",
+    //                "address": "123 Main Avenue",
+    //                "city": "Uptown",
+    //                "state": "ST",
+    //                "telephone": "555-777-7777",
+    //                "menus": [
+    //            {
+    //                "dish": "Soda",
+    //                    "price": 3.50
+    //            },
+    //            {
+    //                "dish": "Latte",
+    //                    "price": 5.00
+    //            }
+    //        ]
+    //        }
     @PostMapping(value = "/restaurant",
-                 consumes = {"application/json"},
-                 produces = {"application/json"})
+                 consumes = {"application/json"})
     public ResponseEntity<?> addNewRestaurant(@Valid
                                               @RequestBody
                                                       Restaurant newRestaurant) throws URISyntaxException
@@ -63,25 +84,35 @@ public class RestaurantController
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{restaurantid}").buildAndExpand(newRestaurant.getRestaurantid()).toUri();
+        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                                                          .path("/{restaurantid}")
+                                                          .buildAndExpand(newRestaurant.getRestaurantid())
+                                                          .toUri();
         responseHeaders.setLocation(newRestaurantURI);
 
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(null,
+                                    responseHeaders,
+                                    HttpStatus.CREATED);
     }
 
-
-    @PutMapping(value = "/restaurant/{restaurantid}")
+    // localhost:2019/restaurants/restaurant/18
+    //        {
+    //            "telephone" : "555-555-1234"
+    //        }
+    @PutMapping(value = "/restaurant/{restaurantid}",
+                consumes = {"application/json"})
     public ResponseEntity<?> updateRestaurant(
             @RequestBody
                     Restaurant updateRestaurant,
             @PathVariable
                     long restaurantid)
     {
-        restaurantService.update(updateRestaurant, restaurantid);
+        restaurantService.update(updateRestaurant,
+                                 restaurantid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    // localhost:2019/restaurants/restaurant/22
     @DeleteMapping("/restaurant/{restaurantid}")
     public ResponseEntity<?> deleteRestaurantById(
             @PathVariable
@@ -90,5 +121,28 @@ public class RestaurantController
         restaurantService.delete(restaurantid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // localhost:2019/restaurants/restaurant/state/st
+    @GetMapping(value = "/restaurant/state/{findstate}",
+                produces = "application/json")
+    public ResponseEntity<?> findRestaurantByState(
+            @PathVariable
+                    String findstate)
+    {
+        List<Restaurant> rtnList = restaurantService.findByState(findstate);
+        return new ResponseEntity<>(rtnList, HttpStatus.OK);
+    }
+
+    // localhost:2019/restaurants/restaurant/likename/eat
+    @GetMapping(value = "/restaurant/likename/{restname}",
+                produces = "application/json")
+    public ResponseEntity<?> findRestaurantByNameLike(
+            @PathVariable
+                    String restname)
+    {
+        List<Restaurant> rtnList = restaurantService.findByNameLike(restname);
+        return new ResponseEntity<>(rtnList, HttpStatus.OK);
+    }
+
 }
 

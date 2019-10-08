@@ -22,7 +22,9 @@ public class RestaurantServiceImpl implements RestaurantService
     public List<Restaurant> findAll()
     {
         List<Restaurant> list = new ArrayList<>();
-        restrepos.findAll().iterator().forEachRemaining(list::add);
+        restrepos.findAll()
+                 .iterator()
+                 .forEachRemaining(list::add);
         return list;
     }
 
@@ -30,7 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService
     public Restaurant findRestaurantById(long id) throws EntityNotFoundException
     {
         return restrepos.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                        .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
     @Override
@@ -46,14 +48,15 @@ public class RestaurantServiceImpl implements RestaurantService
         return restaurant;
     }
 
+    @Transactional
     @Override
     public void delete(long id)
     {
-        if (restrepos.findById(id).isPresent())
+        if (restrepos.findById(id)
+                     .isPresent())
         {
             restrepos.deleteById(id);
-        }
-        else
+        } else
         {
             throw new EntityNotFoundException(Long.toString(id));
         }
@@ -73,7 +76,10 @@ public class RestaurantServiceImpl implements RestaurantService
 
         for (Menu m : restaurant.getMenus())
         {
-            newRestaurant.getMenus().add(new Menu(m.getDish(), m.getPrice(), newRestaurant));
+            newRestaurant.getMenus()
+                         .add(new Menu(m.getDish(),
+                                       m.getPrice(),
+                                       newRestaurant));
         }
 
         return restrepos.save(newRestaurant);
@@ -81,10 +87,11 @@ public class RestaurantServiceImpl implements RestaurantService
 
     @Transactional
     @Override
-    public Restaurant update(Restaurant restaurant, long id)
+    public Restaurant update(Restaurant restaurant,
+                             long id)
     {
         Restaurant currentRestaurant = restrepos.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                                                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
 
         if (restaurant.getName() != null)
         {
@@ -111,14 +118,32 @@ public class RestaurantServiceImpl implements RestaurantService
             currentRestaurant.setTelephone(restaurant.getTelephone());
         }
 
-        if (restaurant.getMenus().size() > 0)
+        if (restaurant.getMenus()
+                      .size() > 0)
         {
             for (Menu m : restaurant.getMenus())
             {
-                currentRestaurant.getMenus().add(new Menu(m.getDish(), m.getPrice(), currentRestaurant));
+                currentRestaurant.getMenus()
+                                 .add(new Menu(m.getDish(),
+                                               m.getPrice(),
+                                               currentRestaurant));
             }
         }
 
         return restrepos.save(currentRestaurant);
+    }
+
+    @Override
+    public List<Restaurant> findByState(String state)
+    {
+        ArrayList<Restaurant> list = restrepos.findByStateIgnoringCase(state);
+        return list;
+    }
+
+    @Override
+    public List<Restaurant> findByNameLike(String thename)
+    {
+        ArrayList<Restaurant> list = restrepos.findByNameContainingIgnoringCase(thename);
+        return list;
     }
 }
