@@ -73,6 +73,7 @@ public class RestaurantServiceImpl implements RestaurantService
         newRestaurant.setCity(restaurant.getCity());
         newRestaurant.setState(restaurant.getState());
         newRestaurant.setTelephone(restaurant.getTelephone());
+        newRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
 
         for (Menu m : restaurant.getMenus())
         {
@@ -123,6 +124,11 @@ public class RestaurantServiceImpl implements RestaurantService
         if (restaurant.getTelephone() != null)
         {
             currentRestaurant.setTelephone(restaurant.getTelephone());
+        }
+
+        if (restaurant.hasvalueforseatcapacity)
+        {
+            currentRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
         }
 
         if (restaurant.getMenus()

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
+@JsonIgnoreProperties(value = {"hasvalueforseatcapacity"})
 public class Restaurant
 {
     @Id
@@ -22,6 +23,9 @@ public class Restaurant
     private String city;
     private String state;
     private String telephone;
+
+    public boolean hasvalueforseatcapacity = false;
+    private int seatcapacity;
 
     @OneToMany(mappedBy = "restaurant",
                cascade = CascadeType.ALL,
@@ -38,13 +42,15 @@ public class Restaurant
                       String address,
                       String city,
                       String state,
-                      String telephone)
+                      String telephone,
+                      int seatcapacity)
     {
         this.name = name;
         this.address = address;
         this.city = city;
         this.state = state;
         this.telephone = telephone;
+        this.seatcapacity = seatcapacity;
     }
 
     public long getRestaurantid()
@@ -115,6 +121,17 @@ public class Restaurant
     public void setMenus(List<Menu> menus)
     {
         this.menus = menus;
+    }
+
+    public int getSeatcapacity()
+    {
+        return seatcapacity;
+    }
+
+    public void setSeatcapacity(int seatcapacity)
+    {
+        hasvalueforseatcapacity = true;
+        this.seatcapacity = seatcapacity;
     }
 
     @Override

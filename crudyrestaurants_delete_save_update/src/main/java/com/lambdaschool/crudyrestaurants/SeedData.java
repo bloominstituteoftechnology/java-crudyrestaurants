@@ -41,7 +41,8 @@ public class SeedData implements CommandLineRunner
                                            "123 Main Street",
                                            "City",
                                            "ST",
-                                           "555-555-1234");
+                                           "555-555-1234",
+                                           15);
             r1.getMenus()
               .add(new Menu("Mac and Cheese",
                             6.95,
@@ -70,7 +71,8 @@ public class SeedData implements CommandLineRunner
                                        "321 Uptown Drive",
                                        "Town",
                                        "ST",
-                                       "555-555-5555");
+                                       "555-555-5555",
+                                       25);
         r2.getMenus()
           .add(new Menu("Tacos",
                         10.49,
@@ -86,7 +88,8 @@ public class SeedData implements CommandLineRunner
                                        "565 Side Avenue",
                                        "Village",
                                        "ST",
-                                       "555-123-1555");
+                                       "555-123-1555",
+                                       110);
         r3.getMenus()
           .add(new Menu("Pizza",
                         15.15,
@@ -128,7 +131,8 @@ public class SeedData implements CommandLineRunner
                                                        nameFaker.address()
                                                                 .stateAbbr(),
                                                        nameFaker.phoneNumber()
-                                                                .cellPhone());
+                                                                .cellPhone(),
+                                                       74);
 
             int randomNumber = random.nextInt(10) + 1; // random number 1 through 10
             for (int j = 0; j < randomNumber; j++)
