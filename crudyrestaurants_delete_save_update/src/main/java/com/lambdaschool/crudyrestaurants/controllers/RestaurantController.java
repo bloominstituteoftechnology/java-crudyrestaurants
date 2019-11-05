@@ -56,23 +56,33 @@ public class RestaurantController
     }
 
     // http://localhost:2019/restaurants/restaurant
-    //        {
-    //            "name": "Good East",
-    //                "address": "123 Main Avenue",
-    //                "city": "Uptown",
-    //                "state": "ST",
-    //                "telephone": "555-777-7777",
-    //                "menus": [
-    //            {
-    //                "dish": "Soda",
-    //                    "price": 3.50
-    //            },
-    //            {
-    //                "dish": "Latte",
-    //                    "price": 5.00
-    //            }
-    //        ]
-    //        }
+    /*
+           {
+              "name": "Good East",
+              "address": "123 Main Avenue",
+              "city": "Uptown",
+              "state": "ST",
+              "telephone": "555-777-7777",
+              "menus": [
+                  {
+                      "dish": "Soda",
+                      "price": 3.50
+                  },
+                  {
+                  "dish": "Latte",
+                   "price": 5.00
+              }
+              ],
+              "payments": [
+              {
+                  "paymentid":8
+              },
+              {
+                  "paymentid":9
+              }
+              ]
+          }
+     */
     @PostMapping(value = "/restaurant",
                  consumes = {"application/json"})
     public ResponseEntity<?> addNewRestaurant(@Valid
@@ -95,9 +105,12 @@ public class RestaurantController
     }
 
     // localhost:2019/restaurants/restaurant/18
-    //        {
-    //            "telephone" : "555-555-1234"
-    //        }
+    /*
+            {
+                "telephone" : "555-555-1234",
+                "seatcapacity" : 152
+            }
+     */
     @PutMapping(value = "/restaurant/{restaurantid}",
                 consumes = {"application/json"})
     public ResponseEntity<?> updateRestaurant(

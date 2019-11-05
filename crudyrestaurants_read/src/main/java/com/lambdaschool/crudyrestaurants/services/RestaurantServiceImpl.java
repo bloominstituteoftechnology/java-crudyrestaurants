@@ -1,6 +1,5 @@
 package com.lambdaschool.crudyrestaurants.services;
 
-import com.lambdaschool.crudyrestaurants.models.Menu;
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
 import com.lambdaschool.crudyrestaurants.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService
     public Restaurant findRestaurantById(long id) throws EntityNotFoundException
     {
         return restrepos.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                        .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
     }
 
     @Override

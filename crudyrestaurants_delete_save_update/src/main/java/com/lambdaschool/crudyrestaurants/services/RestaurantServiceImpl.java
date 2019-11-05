@@ -1,6 +1,7 @@
 package com.lambdaschool.crudyrestaurants.services;
 
 import com.lambdaschool.crudyrestaurants.models.Menu;
+import com.lambdaschool.crudyrestaurants.models.Payment;
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
 import com.lambdaschool.crudyrestaurants.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class RestaurantServiceImpl implements RestaurantService
     @Autowired
     private RestaurantRepository restrepos;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @Override
     public List<Restaurant> findAll()
     {
@@ -32,7 +36,7 @@ public class RestaurantServiceImpl implements RestaurantService
     public Restaurant findRestaurantById(long id) throws EntityNotFoundException
     {
         return restrepos.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                        .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
     }
 
     @Override
@@ -58,7 +62,7 @@ public class RestaurantServiceImpl implements RestaurantService
             restrepos.deleteById(id);
         } else
         {
-            throw new EntityNotFoundException(Long.toString(id));
+            throw new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found");
         }
     }
 
@@ -75,6 +79,12 @@ public class RestaurantServiceImpl implements RestaurantService
         newRestaurant.setTelephone(restaurant.getTelephone());
         newRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
 
+        // payments must already exist
+        for (Payment p : restaurant.getPayments())
+        {
+            newRestaurant.addPayment(paymentService.findPaymentById(p.getPaymentid()));
+        }
+
         for (Menu m : restaurant.getMenus())
         {
             newRestaurant.getMenus()
@@ -83,14 +93,7 @@ public class RestaurantServiceImpl implements RestaurantService
                                        newRestaurant));
         }
 
-        System.out.println("***** Saving *****");
-        try
-        {
-            return restrepos.save(newRestaurant);
-        } catch (Exception e)
-        {
-            return null;
-        }
+        return restrepos.save(newRestaurant);
     }
 
     @Transactional
@@ -99,7 +102,7 @@ public class RestaurantServiceImpl implements RestaurantService
                              long id)
     {
         Restaurant currentRestaurant = restrepos.findById(id)
-                                                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                                                .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
 
         if (restaurant.getName() != null)
         {
@@ -126,11 +129,21 @@ public class RestaurantServiceImpl implements RestaurantService
             currentRestaurant.setTelephone(restaurant.getTelephone());
         }
 
+        // just adds payments. Payments must already exist. Deleting payment items is a different method
+        if (restaurant.getPayments().size() > 0)
+        {
+            for (Payment p : restaurant.getPayments())
+            {
+                currentRestaurant.addPayment(paymentService.findPaymentById(p.getPaymentid()));
+            }
+        }
+
         if (restaurant.hasvalueforseatcapacity)
         {
             currentRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
         }
 
+        // just adds new Menus items. Deleting menu items is a different method
         if (restaurant.getMenus()
                       .size() > 0)
         {

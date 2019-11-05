@@ -1,8 +1,12 @@
 package com.lambdaschool.crudyrestaurants;
 
+import antlr.CommonASTWithHiddenTokens;
 import com.github.javafaker.Faker;
 import com.lambdaschool.crudyrestaurants.models.Menu;
+import com.lambdaschool.crudyrestaurants.models.Payment;
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
+import com.lambdaschool.crudyrestaurants.repositories.PaymentRepository;
+import com.lambdaschool.crudyrestaurants.services.PaymentService;
 import com.lambdaschool.crudyrestaurants.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +21,9 @@ public class SeedData implements CommandLineRunner
 {
     @Autowired
     RestaurantService restaurantService;
+
+    @Autowired
+    PaymentService paymentService;
 
     // needed for JavaFaker seed data
     Random random = new Random();
@@ -33,6 +40,12 @@ public class SeedData implements CommandLineRunner
         }
         System.out.println("********** From data.sql SEED DATA **********\n");
 
+        Payment pay1 = new Payment("Cash");
+        pay1 = paymentService.save(pay1);
+        Payment pay2 = new Payment("Credit Card");
+        pay2 = paymentService.save(pay2);
+        Payment pay3 = new Payment("Mobile Pay");
+        pay3 = paymentService.save(pay3);
 
         // Restaurant String name, String address, String city, String state, String telephone
         // scope of r variables
@@ -52,7 +65,7 @@ public class SeedData implements CommandLineRunner
                             8.50,
                             r1));
             r1.getMenus()
-              .add(new Menu("Meetload",
+              .add(new Menu("Meatloaf",
                             7.77,
                             r1));
             r1.getMenus()
@@ -64,6 +77,9 @@ public class SeedData implements CommandLineRunner
                             12.50,
                             r1));
 
+            r1.addPayment(pay1);
+            r1.addPayment(pay2);
+            r1.addPayment(pay3);
             restaurantService.save(r1);
         }
 
@@ -82,6 +98,7 @@ public class SeedData implements CommandLineRunner
                         12.75,
                         r2));
 
+        r2.addPayment(pay3);
         restaurantService.save(r2);
 
         Restaurant r3 = new Restaurant("Number 1 Eats",
@@ -95,6 +112,8 @@ public class SeedData implements CommandLineRunner
                         15.15,
                         r3));
 
+        r3.addPayment(pay2);
+        r3.addPayment(pay3);
         restaurantService.save(r3);
 
         // This will print to the console the seed data
@@ -147,6 +166,7 @@ public class SeedData implements CommandLineRunner
                                             fakeRestaurant));
             }
 
+            fakeRestaurant.addPayment(pay1);
             restaurantService.save(fakeRestaurant);
         }
 

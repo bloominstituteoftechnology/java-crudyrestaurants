@@ -7,28 +7,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "restaurants")
+@JsonIgnoreProperties(value = {"hasvalueforseatcapacity"})
 public class Restaurant
 {
+    @Transient
+    public boolean hasvalueforseatcapacity = false;
+    @ManyToMany()
+    @JoinTable(name = "restaurantpayments",
+               joinColumns = @JoinColumn(name = "restaurantid"),
+               inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    @JsonIgnoreProperties("restaurants")
+    List<Payment> payments = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long restaurantid;
-
     @Column(unique = true,
             nullable = false)
     private String name;
-
     private String address;
     private String city;
     private String state;
     private String telephone;
-
+    private int seatcapacity;
     @OneToMany(mappedBy = "restaurant",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     @JsonIgnoreProperties("restaurant")
     private List<Menu> menus = new ArrayList<>();
-
 
     public Restaurant()
     {
@@ -38,13 +44,15 @@ public class Restaurant
                       String address,
                       String city,
                       String state,
-                      String telephone)
+                      String telephone,
+                      int seatcapacity)
     {
         this.name = name;
         this.address = address;
         this.city = city;
         this.state = state;
         this.telephone = telephone;
+        this.seatcapacity = seatcapacity;
     }
 
     public long getRestaurantid()
@@ -117,9 +125,44 @@ public class Restaurant
         this.menus = menus;
     }
 
+    public int getSeatcapacity()
+    {
+        return seatcapacity;
+    }
+
+    public void setSeatcapacity(int seatcapacity)
+    {
+        hasvalueforseatcapacity = true;
+        this.seatcapacity = seatcapacity;
+    }
+
+    public List<Payment> getPayments()
+    {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments)
+    {
+        this.payments = payments;
+    }
+
+    public void addPayment(Payment payment)
+    {
+        payments.add(payment);
+        payment.getRestaurants()
+               .add(this);
+    }
+
+    public void removePayment(Payment payment)
+    {
+        payments.remove(payment);
+        payment.getRestaurants()
+               .remove(this);
+    }
+
     @Override
     public String toString()
     {
-        return "Restaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", menus=" + menus + '}';
+        return "\n\tRestaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", hasvalueforseatcapacity=" + hasvalueforseatcapacity + ", seatcapacity=" + seatcapacity + ", menus=" + menus + ", payments=" + payments + '}';
     }
 }
