@@ -82,15 +82,19 @@ public class RestaurantServiceImpl implements RestaurantService
         // payments must already exist
         for (Payment p : restaurant.getPayments())
         {
-            newRestaurant.addPayment(paymentService.findPaymentById(p.getPaymentid()));
+            Payment newPay = paymentService.findPaymentById(p.getPaymentid());
+
+            newRestaurant.addPayment(newPay);
         }
 
         for (Menu m : restaurant.getMenus())
         {
+            Menu newMenu = new Menu(m.getDish(),
+                                    m.getPrice(),
+                                    newRestaurant);
+
             newRestaurant.getMenus()
-                         .add(new Menu(m.getDish(),
-                                       m.getPrice(),
-                                       newRestaurant));
+                         .add(newMenu);
         }
 
         return restrepos.save(newRestaurant);
@@ -134,7 +138,9 @@ public class RestaurantServiceImpl implements RestaurantService
         {
             for (Payment p : restaurant.getPayments())
             {
-                currentRestaurant.addPayment(paymentService.findPaymentById(p.getPaymentid()));
+                Payment newPay = paymentService.findPaymentById(p.getPaymentid());
+
+                currentRestaurant.addPayment(newPay);
             }
         }
 
@@ -149,10 +155,12 @@ public class RestaurantServiceImpl implements RestaurantService
         {
             for (Menu m : restaurant.getMenus())
             {
+                Menu newMenu = new Menu(m.getDish(),
+                                        m.getPrice(),
+                                        currentRestaurant);
+
                 currentRestaurant.getMenus()
-                                 .add(new Menu(m.getDish(),
-                                               m.getPrice(),
-                                               currentRestaurant));
+                                 .add(newMenu);
             }
         }
 
