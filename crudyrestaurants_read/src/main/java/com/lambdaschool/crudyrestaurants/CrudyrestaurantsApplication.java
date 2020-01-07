@@ -5,9 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //todo Add Endpoints for Menus
 
+/**
+ * Main class to start the application.
+ */
 @SpringBootApplication
 public class CrudyrestaurantsApplication
 {
+    /**
+     * Main method to start the application.
+     *
+     * @param args Not used in this application.
+     */
     public static void main(String[] args)
     {
         SpringApplication.run(CrudyrestaurantsApplication.class,

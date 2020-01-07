@@ -10,10 +10,22 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* Note: "Unless there's some extra information that isn't clear from the interface description (there rarely is), the implementation documentation should then simply link to the interface method."
+* Taken from https://stackoverflow.com/questions/11671989/best-practice-for-javadocs-interface-implementation-or-both?lq=1
+*/
+
+
+/**
+ * Implements the RestaurantService Interface.
+ */
 @Transactional
 @Service(value = "restaurantService")
 public class RestaurantServiceImpl implements RestaurantService
 {
+    /**
+     * Connects this service to the Restaurant Table.
+     */
     @Autowired
     private RestaurantRepository restrepos;
 
@@ -21,6 +33,10 @@ public class RestaurantServiceImpl implements RestaurantService
     public List<Restaurant> findAll()
     {
         List<Restaurant> list = new ArrayList<>();
+        /*
+         * findAll returns an iterator set.
+         * iterate over the iterator set and add each element to an array list.
+         */
         restrepos.findAll()
                  .iterator()
                  .forEachRemaining(list::add);

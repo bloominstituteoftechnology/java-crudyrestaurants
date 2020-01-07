@@ -1,3 +1,6 @@
+/*
+Restaurants link to menus and payments so must be removed last.
+ */
 DELETE
 FROM payments;
 
@@ -35,4 +38,8 @@ INSERT INTO menus (menuid, dish, price, restaurantid)
            (10, 'Barbacoa', 12.75, 2),
            (11, 'Pizza', 15.15, 3);
 
+/*
+Must tell hibernate of the id numbers already used.
+The number after with must be greater that the highest number id assigned.
+ */
 alter sequence hibernate_sequence restart with 15;
