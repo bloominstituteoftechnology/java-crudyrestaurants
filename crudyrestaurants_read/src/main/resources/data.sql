@@ -1,6 +1,3 @@
-/*
-Restaurants link to menus and payments so must be removed last.
- */
 DELETE
 FROM payments;
 

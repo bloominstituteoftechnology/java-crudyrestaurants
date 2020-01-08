@@ -62,8 +62,8 @@ public class Restaurant
     public boolean hasvalueforseatcapacity = false;
 
     /**
-     * Creates a join table joining Restaurants and Payments in a Many-To-Many relations
-     * Contains a List of Payment Objects used by this restaurant
+     * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
+     * Contains a List of Payment Objects used by this restaurant.
      */
     @ManyToMany()
     @JoinTable(name = "restaurantpayments",
@@ -119,7 +119,7 @@ public class Restaurant
     /**
      * Getter for restaurantid.
      *
-     * @return The primary key number (long) of the restaurants table.
+     * @return The primary key number (long) of the restaurant's table.
      */
     public long getRestaurantid()
     {

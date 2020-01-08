@@ -3,8 +3,6 @@ package com.lambdaschool.crudyrestaurants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//todo Add Endpoints for Menus
-
 /**
  * Main class to start the application.
  */

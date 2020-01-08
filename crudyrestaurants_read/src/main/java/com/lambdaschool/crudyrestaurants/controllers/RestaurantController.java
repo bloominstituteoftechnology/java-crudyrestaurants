@@ -29,14 +29,14 @@ public class RestaurantController
      * Returns a list of all restaurants.
      * <br>Example: <a href="http://localhost:2019/restaurants/restaurants">http://localhost:2019/restaurants/restaurants</a>.
      *
-     * @see RestaurantService#findAll() RestaurantService.findAll().
+     * @see RestaurantService#findAllRestaurants() RestaurantService.findAllRestaurants().
      * @return JSON list of all restaurants with a status of OK.
      */
     @GetMapping(value = "/restaurants",
                 produces = {"application/json"})
     public ResponseEntity<?> listAllRestaurants()
     {
-        List<Restaurant> myRestaurants = restaurantService.findAll();
+        List<Restaurant> myRestaurants = restaurantService.findAllRestaurants();
         return new ResponseEntity<>(myRestaurants,
                                     HttpStatus.OK);
     }

@@ -21,7 +21,7 @@ public class Payment
     private long paymentid;
 
     /**
-     * The type (String) of payment.
+     * The type (String) of payment. Cannot be null and must be unique.
      */
     @Column(nullable = false,
             unique = true)

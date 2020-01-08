@@ -30,7 +30,7 @@ public class RestaurantServiceImpl implements RestaurantService
     private RestaurantRepository restrepos;
 
     @Override
-    public List<Restaurant> findAll()
+    public List<Restaurant> findAllRestaurants()
     {
         List<Restaurant> list = new ArrayList<>();
         /*

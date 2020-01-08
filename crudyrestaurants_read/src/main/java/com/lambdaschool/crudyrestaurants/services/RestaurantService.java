@@ -14,7 +14,7 @@ public interface RestaurantService
      *
      * @return List of Restaurant. If no Restaurant, empty list.
      */
-    List<Restaurant> findAll();
+    List<Restaurant> findAllRestaurants();
 
     /**
      * Returns the restaurant with the given primary key.
