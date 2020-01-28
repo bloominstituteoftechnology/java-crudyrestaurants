@@ -47,7 +47,7 @@ public class RestaurantServiceImpl implements RestaurantService
     public Restaurant findRestaurantById(long id) throws EntityNotFoundException
     {
         return restrepos.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
+                        .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
     }
 
     @Override
