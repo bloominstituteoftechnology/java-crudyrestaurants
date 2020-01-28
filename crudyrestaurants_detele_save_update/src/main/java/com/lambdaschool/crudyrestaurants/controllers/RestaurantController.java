@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -122,21 +121,21 @@ public class RestaurantController
     /**
      * Given a complete Restaurant Object, create a new Restaurant record and accompanying menu records
      * and restaurant payment records.
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant">http://localhost:2019/restaurants/restaurant</a>
      *
      * @param newRestaurant A complete new restaurant to add including menus and payments.
      *                      Payments must already exist.
      * @return A location header with the URI to the newly created restaurant and a status of CREATED
-     * @throws URISyntaxException A URI to the newly created restaurant is put in the location header.
-     *                            If an error occurs in generating that URI, an exception is thrown.
      */
     @PostMapping(value = "/restaurant",
         consumes = {"application/json"})
     public ResponseEntity<?> addNewRestaurant(
         @Valid
         @RequestBody
-            Restaurant newRestaurant) throws
-        URISyntaxException
+            Restaurant newRestaurant)
     {
+        // ids are not recognized by the Post method
+        newRestaurant.setRestaurantid(0);
         newRestaurant = restaurantService.save(newRestaurant);
 
         // set the location header for the newly created resource
@@ -153,10 +152,15 @@ public class RestaurantController
     }
 
     /**
+     * Given a complete Restaurant Object
+     * Given the restaurant id, primary key, is in the Restaurant table,
+     * replace the Restaurant record, menu records, and restaurant payment records referenced by the given restaurant id
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/18">http://localhost:2019/restaurants/restaurant/18</a>
      *
-     * @param updateRestaurant
-     * @param restaurantid
-     * @return
+     * @param updateRestaurant A complete Restaurant including all menu items and restaurant payment to be used to
+     *                         replace the Restaurant. Payment types must already exist.
+     * @param restaurantid     The primary key of the restaurant you wish to replace.
+     * @return status of OK
      */
     @PutMapping(value = "/restaurant/{restaurantid}",
         consumes = {"application/json"})
@@ -168,21 +172,21 @@ public class RestaurantController
             long restaurantid)
     {
         updateRestaurant.setRestaurantid(restaurantid);
-        updateRestaurant = restaurantService.save(updateRestaurant);
+        restaurantService.save(updateRestaurant);
 
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{restaurantid}")
-            .buildAndExpand(updateRestaurant.getRestaurantid())
-            .toUri();
-        responseHeaders.setLocation(newRestaurantURI);
-
-        return new ResponseEntity<>(null,
-            responseHeaders,
-            HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Updates the restaurant record associated with the given id with the provided data. Only the provided fields are affected.
+     * Just adds payments to this restaurant. Payments must already exist. Deleting payment items is a different method.
+     * Just adds new Menus items to this restaurant. Deleting menu items is a different method.
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/10">http://localhost:2019/restaurants/restaurant/10</a>
+     *
+     * @param updateRestaurant An object containing values for just the fields that are being updated. All other fields are left NULL.
+     * @param restaurantid     The primary key of the restaurant you wish to update.
+     * @return A status of OK
+     */
     @PatchMapping(value = "/restaurant/{restaurantid}",
         consumes = {"application/json"})
     public ResponseEntity<?> updateRestaurant(
@@ -196,6 +200,13 @@ public class RestaurantController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Delete the Restaurant record associated with the given id. The associated menu items, and Restaurant Payments items are also deleted. Payments is unaffected.
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/4">http://localhost:2019/restaurants/restaurant/4</a>
+     *
+     * @param restaurantid The primary key of the restaurant you wish to delete.
+     * @return No body is returned. A status of OK is returned if the deletion is successful.
+     */
     @DeleteMapping("/restaurant/{restaurantid}")
     public ResponseEntity<?> deleteRestaurantById(
         @PathVariable

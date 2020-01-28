@@ -56,7 +56,7 @@ public class RestaurantServiceImpl
         EntityNotFoundException
     {
         return restrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
+            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class RestaurantServiceImpl
             restrepos.deleteById(id);
         } else
         {
-            throw new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found");
+            throw new EntityNotFoundException("Restaurant " + id + " Not Found");
         }
     }
 
@@ -107,6 +107,13 @@ public class RestaurantServiceImpl
     {
         Restaurant newRestaurant = new Restaurant();
 
+        if (restaurant.getRestaurantid() != 0)
+        {
+            restrepos.findById(restaurant.getRestaurantid())
+                .orElseThrow(() -> new EntityNotFoundException("Restaurant " + restaurant.getRestaurantid() + " Not Found"));
+
+            newRestaurant.setRestaurantid(restaurant.getRestaurantid());
+        }
         newRestaurant.setName(restaurant.getName());
         newRestaurant.setAddress(restaurant.getAddress());
         newRestaurant.setCity(restaurant.getCity());
@@ -142,7 +149,7 @@ public class RestaurantServiceImpl
         long id)
     {
         Restaurant currentRestaurant = restrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + Long.toString(id) + " Not Found"));
+            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
 
         if (restaurant.getName() != null)
         {

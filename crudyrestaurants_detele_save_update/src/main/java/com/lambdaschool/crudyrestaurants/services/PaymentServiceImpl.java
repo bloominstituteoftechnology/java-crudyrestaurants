@@ -27,7 +27,7 @@ public class PaymentServiceImpl
     public Payment findPaymentById(long id)
     {
         return paymentrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Payment " + Long.toString(id) + " Not Found"));
+            .orElseThrow(() -> new EntityNotFoundException("Payment " + id + " Not Found"));
     }
 
     @Override
