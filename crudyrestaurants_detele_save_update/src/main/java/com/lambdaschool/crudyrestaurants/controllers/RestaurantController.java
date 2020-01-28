@@ -126,6 +126,7 @@ public class RestaurantController
      * @param newRestaurant A complete new restaurant to add including menus and payments.
      *                      Payments must already exist.
      * @return A location header with the URI to the newly created restaurant and a status of CREATED
+     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant)
      */
     @PostMapping(value = "/restaurant",
         consumes = {"application/json"})
@@ -161,6 +162,7 @@ public class RestaurantController
      *                         replace the Restaurant. Payment types must already exist.
      * @param restaurantid     The primary key of the restaurant you wish to replace.
      * @return status of OK
+     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant) 
      */
     @PutMapping(value = "/restaurant/{restaurantid}",
         consumes = {"application/json"})
@@ -186,6 +188,7 @@ public class RestaurantController
      * @param updateRestaurant An object containing values for just the fields that are being updated. All other fields are left NULL.
      * @param restaurantid     The primary key of the restaurant you wish to update.
      * @return A status of OK
+     * @see RestaurantService#update(Restaurant, long) RestaurantService.update(Restaurant, long)
      */
     @PatchMapping(value = "/restaurant/{restaurantid}",
         consumes = {"application/json"})
@@ -206,6 +209,7 @@ public class RestaurantController
      *
      * @param restaurantid The primary key of the restaurant you wish to delete.
      * @return No body is returned. A status of OK is returned if the deletion is successful.
+     * @see RestaurantService#delete(long) RestaurantService.delete(long)
      */
     @DeleteMapping("/restaurant/{restaurantid}")
     public ResponseEntity<?> deleteRestaurantById(
