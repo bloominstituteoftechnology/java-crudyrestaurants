@@ -21,8 +21,7 @@ import java.util.*;
  */
 @Transactional
 @Component
-public class SeedData
-    implements CommandLineRunner
+public class SeedData implements CommandLineRunner
 {
     /**
      * Connects the Restaurant Service to this process

@@ -22,8 +22,7 @@ import java.util.List;
  */
 @Transactional
 @Service(value = "restaurantService")
-public class RestaurantServiceImpl
-    implements RestaurantService
+public class RestaurantServiceImpl implements RestaurantService
 {
     /**
      * Connects this service to the Restaurant Table.
@@ -53,7 +52,7 @@ public class RestaurantServiceImpl
 
     @Override
     public Restaurant findRestaurantById(long id) throws
-        EntityNotFoundException
+                                                  EntityNotFoundException
     {
         return restrepos.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
@@ -61,7 +60,7 @@ public class RestaurantServiceImpl
 
     @Override
     public Restaurant findRestaurantByName(String name) throws
-        EntityNotFoundException
+                                                        EntityNotFoundException
     {
         Restaurant restaurant = restrepos.findByName(name);
 

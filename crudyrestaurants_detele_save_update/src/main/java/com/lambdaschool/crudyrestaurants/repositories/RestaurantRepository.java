@@ -8,8 +8,7 @@ import java.util.ArrayList;
 /**
  * The CRUD Repository connecting Restaurant to the rest of the application.
  */
-public interface RestaurantRepository
-    extends CrudRepository<Restaurant, Long>
+public interface RestaurantRepository extends CrudRepository<Restaurant, Long>
 {
     /**
      * Find a restaurant by its full name.

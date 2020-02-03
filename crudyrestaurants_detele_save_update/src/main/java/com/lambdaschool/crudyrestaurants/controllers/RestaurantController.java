@@ -162,7 +162,7 @@ public class RestaurantController
      *                         replace the Restaurant. Payment types must already exist.
      * @param restaurantid     The primary key of the restaurant you wish to replace.
      * @return status of OK
-     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant) 
+     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant)
      */
     @PutMapping(value = "/restaurant/{restaurantid}",
         consumes = {"application/json"})

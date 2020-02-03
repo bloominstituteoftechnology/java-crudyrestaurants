@@ -14,8 +14,7 @@ import java.util.ArrayList;
  */
 @Transactional
 @Service(value = "paymentService")
-public class PaymentServiceImpl
-    implements PaymentService
+public class PaymentServiceImpl implements PaymentService
 {
     /**
      * Connects this service to the Payment Table.

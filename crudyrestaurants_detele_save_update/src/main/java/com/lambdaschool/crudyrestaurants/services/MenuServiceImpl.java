@@ -11,8 +11,7 @@ import java.util.List;
 
 @Transactional
 @Service(value = "menuService")
-public class MenuServiceImpl
-    implements MenuService
+public class MenuServiceImpl implements MenuService
 {
     /**
      * Connects this service to the Menus Table.
