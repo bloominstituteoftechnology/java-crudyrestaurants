@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class PaymentServiceImpl implements PaymentService
         if (payment.getRestaurants()
             .size() > 0)
         {
-            throw new EntityNotFoundException("Restaurants not added through payments");
+            throw new EntityExistsException("Restaurants not added through payments");
         }
 
         Payment newPayment = new Payment();

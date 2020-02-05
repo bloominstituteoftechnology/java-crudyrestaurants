@@ -72,7 +72,7 @@ public interface RestaurantService
      * is done through a separate endpoint.
      *
      * @param restaurant just the restaurant fields to be updated.
-     * @param id         The primary key of the restaurant to update
+     * @param id         The primary key (long) of the restaurant to update
      * @return the complete restaurant object that got updated
      */
     Restaurant update(
