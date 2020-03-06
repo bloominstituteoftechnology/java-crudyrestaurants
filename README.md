@@ -12,8 +12,6 @@ A student that completes this project shows that they can:
 
 This is a basic database scheme with restaurants, menus, payment system. This Java Spring REST API application will provide endpoints for clients to read various data sets contained in the applications data.
 
-Using the provided seed data, a successful application will return the follow data based on the given endpoint. Expand the section of the endpoint to see the data that is returned.
-
 ### Database layout
 
 The table layouts are as follows

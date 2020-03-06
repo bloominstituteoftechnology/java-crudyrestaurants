@@ -3,7 +3,7 @@ package com.lambdaschool.crudyrestaurants.services;
 import com.lambdaschool.crudyrestaurants.models.Payment;
 
 /**
- * The Service that works with the Menu Model.
+ * The Service that works with the Payment Model.
  */
 public interface PaymentService
 {

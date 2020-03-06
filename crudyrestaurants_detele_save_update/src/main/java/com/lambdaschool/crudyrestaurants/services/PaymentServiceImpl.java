@@ -30,6 +30,7 @@ public class PaymentServiceImpl implements PaymentService
             .orElseThrow(() -> new EntityNotFoundException("Payment " + id + " Not Found"));
     }
 
+    @Transactional
     @Override
     public Payment save(Payment payment)
     {

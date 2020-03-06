@@ -15,24 +15,6 @@ import java.util.List;
 public class Restaurant
 {
     /**
-     * Used to determine if the field seatcapacity has been set or is NULL, meaning 0 for an integer value.
-     * Does not get saved to the database.
-     */
-    @Transient
-    public boolean hasvalueforseatcapacity = false;
-
-    /**
-     * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
-     * Contains a List of Payment Objects used by this restaurant.
-     */
-    @ManyToMany()
-    @JoinTable(name = "restaurantpayments",
-        joinColumns = @JoinColumn(name = "restaurantid"),
-        inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties("restaurants")
-    List<Payment> payments = new ArrayList<>();
-
-    /**
      * The primary key number (long) of the restaurants table.
      */
     @Id
@@ -71,6 +53,24 @@ public class Restaurant
      * This was added to specifically show how to update fields that do not have a NULL value.
      */
     private int seatcapacity;
+
+    /**
+     * Used to determine if the field seatcapacity has been set or is NULL, meaning 0 for an integer value.
+     * Does not get saved to the database.
+     */
+    @Transient
+    public boolean hasvalueforseatcapacity = false;
+
+    /**
+     * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
+     * Contains a List of Payment Objects used by this restaurant.
+     */
+    @ManyToMany()
+    @JoinTable(name = "restaurantpayments",
+        joinColumns = @JoinColumn(name = "restaurantid"),
+        inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    @JsonIgnoreProperties("restaurants")
+    List<Payment> payments = new ArrayList<>();
 
     /**
      * List of menus associated with this restaurant. Does not get saved in the database directly.
