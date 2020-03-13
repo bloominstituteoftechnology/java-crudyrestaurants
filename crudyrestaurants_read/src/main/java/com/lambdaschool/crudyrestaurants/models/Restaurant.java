@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "restaurants")
-@JsonIgnoreProperties(value = {"hasvalueforseatcapacity"})
+@JsonIgnoreProperties(value = "hasvalueforseatcapacity") // never comes in from client!
 public class Restaurant
 {
     /**
@@ -69,7 +69,7 @@ public class Restaurant
     @JoinTable(name = "restaurantpayments",
             joinColumns = @JoinColumn(name = "restaurantid"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties("restaurants")
+    @JsonIgnoreProperties(value = "restaurants", allowSetters = true)
     List<Payment> payments = new ArrayList<>();
 
     /**
@@ -79,7 +79,7 @@ public class Restaurant
     @OneToMany(mappedBy = "restaurant",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
-    @JsonIgnoreProperties("restaurant")
+    @JsonIgnoreProperties(value = "restaurant", allowSetters = true)
     private List<Menu> menus = new ArrayList<>();
 
     /**

@@ -34,10 +34,10 @@ public class Menu
      * Forms a Many-To-One relation with the restaurants table. Many menus to one restaurant.
      * Contains an object pointer to the full restaurant object.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "restaurantid",
         nullable = false)
-    @JsonIgnoreProperties({"menus", "hibernateLazyInitializer"})
+    @JsonIgnoreProperties(value = "menus", allowSetters = true)
     private Restaurant restaurant;
 
     /**

@@ -32,7 +32,7 @@ public class Payment
      * Contains a List of Restaurant Objects using this Payment method.
      */
     @ManyToMany(mappedBy = "payments")
-    @JsonIgnoreProperties("payments")
+    @JsonIgnoreProperties(value = "payments", allowSetters = true)
     private List<Restaurant> restaurants = new ArrayList<>();
 
     /**
