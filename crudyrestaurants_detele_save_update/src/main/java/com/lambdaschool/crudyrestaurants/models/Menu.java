@@ -37,7 +37,8 @@ public class Menu
     @ManyToOne
     @JoinColumn(name = "restaurantid",
         nullable = false)
-    @JsonIgnoreProperties(value = "menus", allowSetters = true)
+    @JsonIgnoreProperties(value = "menus",
+        allowSetters = true)
     private Restaurant restaurant;
 
     /**

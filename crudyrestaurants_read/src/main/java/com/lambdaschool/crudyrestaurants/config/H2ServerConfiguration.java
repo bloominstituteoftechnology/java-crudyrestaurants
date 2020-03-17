@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  * Configures H2 access through the JetBrains IntelliJ IDEA IDE.
- *
+ * <p>
  * Adapted from https://techdev.io/en/developer-blog/querying-the-embedded-h2-database-of-a-spring-boot-application
  * necessary for using the database tool built into intellij
  */
@@ -43,10 +43,10 @@ public class H2ServerConfiguration
     public Server h2TcpServer() throws SQLException
     {
         return Server.createTcpServer("-tcp",
-                                      "-tcpAllowOthers",
-                                      "-tcpPort",
-                                      h2TcpPort)
-                     .start();
+            "-tcpAllowOthers",
+            "-tcpPort",
+            h2TcpPort)
+            .start();
     }
 
     /**
@@ -62,9 +62,9 @@ public class H2ServerConfiguration
     public Server h2WebServer() throws SQLException
     {
         return Server.createWebServer("-web",
-                                      "-webAllowOthers",
-                                      "-webPort",
-                                      h2WebPort)
-                     .start();
+            "-webAllowOthers",
+            "-webPort",
+            h2WebPort)
+            .start();
     }
 }

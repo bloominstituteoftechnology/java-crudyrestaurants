@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 
 /**
  * Implements the PaymentService Interface.
@@ -40,10 +39,6 @@ public class PaymentServiceImpl implements PaymentService
         {
             throw new EntityExistsException("Restaurants not added through payments");
         }
-
-        Payment newPayment = new Payment();
-        newPayment.setRestaurants(new ArrayList<>());
-        newPayment.setType(payment.getType());
 
         return paymentrepos.save(payment);
     }

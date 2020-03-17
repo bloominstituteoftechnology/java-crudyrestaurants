@@ -48,6 +48,10 @@ public interface RestaurantService
      */
     List<Restaurant> findByNameLike(String thename);
 
+    /*
+     * New to delete save update
+     */
+
     /**
      * Deletes the restaurant record and its menu items from the database based off of the provided primary key
      *

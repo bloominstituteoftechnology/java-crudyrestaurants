@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-* Note: "Unless there's some extra information that isn't clear from the interface description (there rarely is), the implementation documentation should then simply link to the interface method."
-* Taken from https://stackoverflow.com/questions/11671989/best-practice-for-javadocs-interface-implementation-or-both?lq=1
-*/
+ * Note: "Unless there's some extra information that isn't clear from the interface description (there rarely is), the implementation documentation should then simply link to the interface method."
+ * Taken from https://stackoverflow.com/questions/11671989/best-practice-for-javadocs-interface-implementation-or-both?lq=1
+ */
 
 
 /**
@@ -38,8 +38,8 @@ public class RestaurantServiceImpl implements RestaurantService
          * iterate over the iterator set and add each element to an array list.
          */
         restrepos.findAll()
-                 .iterator()
-                 .forEachRemaining(list::add);
+            .iterator()
+            .forEachRemaining(list::add);
         return list;
     }
 
@@ -47,7 +47,7 @@ public class RestaurantServiceImpl implements RestaurantService
     public Restaurant findRestaurantById(long id) throws EntityNotFoundException
     {
         return restrepos.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
+            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
     }
 
     @Override

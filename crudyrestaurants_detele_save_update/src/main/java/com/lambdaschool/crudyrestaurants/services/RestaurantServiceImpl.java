@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,10 @@ public class RestaurantServiceImpl implements RestaurantService
         return list;
     }
 
+    /*
+     * New to delete save update
+     */
+
     @Transactional
     @Override
     public void delete(long id)
@@ -113,6 +118,7 @@ public class RestaurantServiceImpl implements RestaurantService
 
             newRestaurant.setRestaurantid(restaurant.getRestaurantid());
         }
+
         newRestaurant.setName(restaurant.getName());
         newRestaurant.setAddress(restaurant.getAddress());
         newRestaurant.setCity(restaurant.getCity());
@@ -120,7 +126,8 @@ public class RestaurantServiceImpl implements RestaurantService
         newRestaurant.setTelephone(restaurant.getTelephone());
         newRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
 
-        // payments must already exist
+        newRestaurant.getPayments()
+            .clear();
         for (Payment p : restaurant.getPayments())
         {
             Payment newPay = paymentService.findPaymentById(p.getPaymentid());
@@ -128,6 +135,8 @@ public class RestaurantServiceImpl implements RestaurantService
             newRestaurant.addPayment(newPay);
         }
 
+        newRestaurant.getMenus()
+            .clear();
         for (Menu m : restaurant.getMenus())
         {
             Menu newMenu = new Menu(m.getDish(),
@@ -175,10 +184,11 @@ public class RestaurantServiceImpl implements RestaurantService
             currentRestaurant.setTelephone(restaurant.getTelephone());
         }
 
-        // just adds payments. Payments must already exist. Deleting payment items is a different method
         if (restaurant.getPayments()
             .size() > 0)
         {
+            currentRestaurant.getPayments()
+                .clear();
             for (Payment p : restaurant.getPayments())
             {
                 Payment newPay = paymentService.findPaymentById(p.getPaymentid());
@@ -192,10 +202,11 @@ public class RestaurantServiceImpl implements RestaurantService
             currentRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
         }
 
-        // just adds new Menus items. Deleting menu items is a different method
         if (restaurant.getMenus()
             .size() > 0)
         {
+            currentRestaurant.getMenus()
+                .clear();
             for (Menu m : restaurant.getMenus())
             {
                 Menu newMenu = new Menu(m.getDish(),

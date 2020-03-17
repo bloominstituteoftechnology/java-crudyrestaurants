@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the MenuService Interface
+ */
 @Transactional
 @Service(value = "menuService")
 public class MenuServiceImpl implements MenuService

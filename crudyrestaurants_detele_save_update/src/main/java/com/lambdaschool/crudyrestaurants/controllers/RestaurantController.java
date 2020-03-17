@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+
 /**
  * The entry point for clients to access restaurant data.
  */
@@ -118,6 +119,10 @@ public class RestaurantController
             HttpStatus.OK);
     }
 
+    /*
+     * New to delete save update
+     */
+
     /**
      * Given a complete Restaurant Object, create a new Restaurant record and accompanying menu records
      * and restaurant payment records.
@@ -155,11 +160,12 @@ public class RestaurantController
     /**
      * Given a complete Restaurant Object
      * Given the restaurant id, primary key, is in the Restaurant table,
-     * replace the Restaurant record, menu records, and restaurant payment records referenced by the given restaurant id
+     * replace the Restaurant record, menu records referenced by the given restaurant id
+     * restaurant payment combinations are updated elsewhere
      * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/18">http://localhost:2019/restaurants/restaurant/18</a>
      *
-     * @param updateRestaurant A complete Restaurant including all menu items and restaurant payment to be used to
-     *                         replace the Restaurant. Payment types must already exist.
+     * @param updateRestaurant A complete Restaurant including all menu items to be used to
+     *                         replace the Restaurant.
      * @param restaurantid     The primary key of the restaurant you wish to replace.
      * @return status of OK
      * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant)
@@ -181,8 +187,8 @@ public class RestaurantController
 
     /**
      * Updates the restaurant record associated with the given id with the provided data. Only the provided fields are affected.
-     * Just adds payments to this restaurant. Payments must already exist. Deleting payment items is a different method.
-     * Just adds new Menus items to this restaurant. Deleting menu items is a different method.
+     * Updating and Deleting payment items is a different method.
+     * Just replaces new Menus items to this restaurant. Adding and deleting individual menu items is a different method.
      * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/10">http://localhost:2019/restaurants/restaurant/10</a>
      *
      * @param updateRestaurant An object containing values for just the fields that are being updated. All other fields are left NULL.

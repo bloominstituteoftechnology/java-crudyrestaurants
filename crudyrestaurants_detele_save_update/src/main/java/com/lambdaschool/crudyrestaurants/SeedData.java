@@ -50,6 +50,7 @@ public class SeedData implements CommandLineRunner
      *
      * @param args The parameter is required by the parent interface but is not used in this process.
      */
+    @Transactional
     @Override
     public void run(String[] args)
     {

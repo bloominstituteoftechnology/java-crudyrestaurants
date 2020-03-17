@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "restaurants")
-@JsonIgnoreProperties(value = "hasvalueforseatcapacity") // clients never send this!
+@JsonIgnoreProperties(value = "hasvalueforseatcapacity") // never comes in from client!
 public class Restaurant
 {
     /**
@@ -49,17 +49,17 @@ public class Restaurant
     private String telephone;
 
     /**
-     * The seating capacity (integer) of the restaurant.
-     * This was added to specifically show how to update fields that do not have a NULL value.
-     */
-    private int seatcapacity;
-
-    /**
      * Used to determine if the field seatcapacity has been set or is NULL, meaning 0 for an integer value.
      * Does not get saved to the database.
      */
     @Transient
     public boolean hasvalueforseatcapacity = false;
+
+    /**
+     * The seating capacity (integer) of the restaurant.
+     * This was added to specifically show how to update fields that do not have a NULL value.
+     */
+    private int seatcapacity;
 
     /**
      * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
@@ -69,7 +69,8 @@ public class Restaurant
     @JoinTable(name = "restaurantpayments",
         joinColumns = @JoinColumn(name = "restaurantid"),
         inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties(value = "restaurants", allowSetters = true)
+    @JsonIgnoreProperties(value = "restaurants",
+        allowSetters = true)
     List<Payment> payments = new ArrayList<>();
 
     /**
@@ -79,7 +80,8 @@ public class Restaurant
     @OneToMany(mappedBy = "restaurant",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
-    @JsonIgnoreProperties(value = "restaurant", allowSetters = true)
+    @JsonIgnoreProperties(value = "restaurant",
+        allowSetters = true)
     private List<Menu> menus = new ArrayList<>();
 
     /**

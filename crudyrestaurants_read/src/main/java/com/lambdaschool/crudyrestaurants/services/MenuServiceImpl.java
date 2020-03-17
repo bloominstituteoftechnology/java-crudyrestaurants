@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the menuservice interface
+ */
 @Transactional
 @Service(value = "menuService")
 public class MenuServiceImpl implements MenuService
@@ -27,7 +30,9 @@ public class MenuServiceImpl implements MenuService
          * findAll returns an iterator set.
          * iterate over the iterator set and add each element to an array list.
          */
-        menurepos.findAll().iterator().forEachRemaining(list::add);
+        menurepos.findAll()
+            .iterator()
+            .forEachRemaining(list::add);
         return list;
     }
 }

@@ -29,15 +29,15 @@ public class MenuController
      * Returns a list of all menus.
      * <br>Example: <a href="http://localhost:2019/menus/menus">http://localhost:2019/menus/menus</a>.
      *
-     * @see RestaurantService#findAllRestaurants() MenuService.findAllMenus().
      * @return JSON list of all menus with a status of OK.
+     * @see RestaurantService#findAllRestaurants() MenuService.findAllMenus().
      */
     @GetMapping(value = "/menus",
-            produces = {"application/json"})
+        produces = {"application/json"})
     public ResponseEntity<?> listAllMenus()
     {
         List<Menu> myMenus = menuService.findAllMenus();
         return new ResponseEntity<>(myMenus,
-                HttpStatus.OK);
+            HttpStatus.OK);
     }
 }
