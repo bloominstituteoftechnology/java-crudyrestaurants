@@ -11,7 +11,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "restaurants")
-@JsonIgnoreProperties(value = "hasvalueforseatcapacity") // never comes in from client!
 public class Restaurant
 {
     /**
@@ -53,7 +52,6 @@ public class Restaurant
      * Does not get saved to the database.
      */
     @Transient
-    public boolean hasvalueforseatcapacity = false;
 
     /**
      * The seating capacity (integer) of the restaurant.
@@ -69,8 +67,7 @@ public class Restaurant
     @JoinTable(name = "restaurantpayments",
         joinColumns = @JoinColumn(name = "restaurantid"),
         inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties(value = "restaurants",
-        allowSetters = true)
+    @JsonIgnoreProperties(value = "restaurants")
     List<Payment> payments = new ArrayList<>();
 
     /**
@@ -80,8 +77,7 @@ public class Restaurant
     @OneToMany(mappedBy = "restaurant",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
-    @JsonIgnoreProperties(value = "restaurant",
-        allowSetters = true)
+    @JsonIgnoreProperties(value = "restaurant")
     private List<Menu> menus = new ArrayList<>();
 
     /**
@@ -272,17 +268,11 @@ public class Restaurant
 
     /**
      * Setter for seatcapacity.
-     * <p>
-     * If the value is set through the JPA, specifically through a JSON object set to this API,
-     * hasvaluefor will be set to true. Otherwise it defaults to false.
-     * This allows the application to tell if a seatcapacity is 0 because it was set as 0 or
-     * because it is not set and thus should be considered NULL but is in fact 0.
      *
      * @param seatcapacity The new amount (integer) of seats this restaurant has.
      */
     public void setSeatcapacity(int seatcapacity)
     {
-        hasvalueforseatcapacity = true;
         this.seatcapacity = seatcapacity;
     }
 
@@ -334,11 +324,11 @@ public class Restaurant
     /**
      * Custom toString method.
      *
-     * @return The restaurant id, name, address, city, state, telephone, hasvalueforseatcapacity, seatcapacity, menus.toString, payments.toString
+     * @return The restaurant id, name, address, city, state, telephone, seatcapacity, menus.toString, payments.toString
      */
     @Override
     public String toString()
     {
-        return "\n\tRestaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", hasvalueforseatcapacity=" + hasvalueforseatcapacity + ", seatcapacity=" + seatcapacity + ", menus=" + menus + ", payments=" + payments + '}';
+        return "\n\tRestaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", seatcapacity=" + seatcapacity + ", menus=" + menus + ", payments=" + payments + '}';
     }
 }
