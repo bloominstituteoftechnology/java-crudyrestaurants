@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Transactional
 @Service(value = "menuService")
-public class MenuServiceImpl implements MenuService
+public class MenuServiceImpl
+        implements MenuService
 {
     /**
      * Connects this service to the Menus Table.
@@ -31,8 +32,8 @@ public class MenuServiceImpl implements MenuService
          * iterate over the iterator set and add each element to an array list.
          */
         menurepos.findAll()
-            .iterator()
-            .forEachRemaining(list::add);
+                .iterator()
+                .forEachRemaining(list::add);
         return list;
     }
 }

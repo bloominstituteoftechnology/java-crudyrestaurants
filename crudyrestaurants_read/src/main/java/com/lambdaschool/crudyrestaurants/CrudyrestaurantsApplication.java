@@ -17,7 +17,7 @@ public class CrudyrestaurantsApplication
     public static void main(String[] args)
     {
         SpringApplication.run(CrudyrestaurantsApplication.class,
-            args);
+                              args);
     }
 
 }

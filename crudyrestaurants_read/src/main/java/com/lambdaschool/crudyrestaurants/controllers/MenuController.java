@@ -33,11 +33,11 @@ public class MenuController
      * @see RestaurantService#findAllRestaurants() MenuService.findAllMenus().
      */
     @GetMapping(value = "/menus",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> listAllMenus()
     {
         List<Menu> myMenus = menuService.findAllMenus();
         return new ResponseEntity<>(myMenus,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 }

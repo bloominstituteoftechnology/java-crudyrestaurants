@@ -33,12 +33,12 @@ public class RestaurantController
      * @see RestaurantService#findAllRestaurants() RestaurantService.findAllRestaurants().
      */
     @GetMapping(value = "/restaurants",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> listAllRestaurants()
     {
         List<Restaurant> myRestaurants = restaurantService.findAllRestaurants();
         return new ResponseEntity<>(myRestaurants,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -50,14 +50,14 @@ public class RestaurantController
      * @see RestaurantService#findRestaurantById(long) RestaurantService.findRestaurantById(long).
      */
     @GetMapping(value = "/restaurant/{restaurantId}",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> getRestaurantById(
-        @PathVariable
-            Long restaurantId)
+            @PathVariable
+                    Long restaurantId)
     {
         Restaurant r = restaurantService.findRestaurantById(restaurantId);
         return new ResponseEntity<>(r,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -69,14 +69,14 @@ public class RestaurantController
      * @see RestaurantService#findRestaurantByName(String) RestaurantService.findRestaurantByName(String).
      */
     @GetMapping(value = "/restaurant/name/{name}",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> getRestaurantByName(
-        @PathVariable
-            String name)
+            @PathVariable
+                    String name)
     {
         Restaurant r = restaurantService.findRestaurantByName(name);
         return new ResponseEntity<>(r,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -88,14 +88,14 @@ public class RestaurantController
      * @see RestaurantService#findByState(String) RestaurantService.findByState(String).
      */
     @GetMapping(value = "/restaurant/state/{findstate}",
-        produces = "application/json")
+            produces = "application/json")
     public ResponseEntity<?> findRestaurantByState(
-        @PathVariable
-            String findstate)
+            @PathVariable
+                    String findstate)
     {
         List<Restaurant> rtnList = restaurantService.findByState(findstate);
         return new ResponseEntity<>(rtnList,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -107,13 +107,13 @@ public class RestaurantController
      * @see RestaurantService#findByNameLike(String) RestaurantService.findByNameLike(String).
      */
     @GetMapping(value = "/restaurant/likename/{restname}",
-        produces = "application/json")
+            produces = "application/json")
     public ResponseEntity<?> findRestaurantByNameLike(
-        @PathVariable
-            String restname)
+            @PathVariable
+                    String restname)
     {
         List<Restaurant> rtnList = restaurantService.findByNameLike(restname);
         return new ResponseEntity<>(rtnList,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 }

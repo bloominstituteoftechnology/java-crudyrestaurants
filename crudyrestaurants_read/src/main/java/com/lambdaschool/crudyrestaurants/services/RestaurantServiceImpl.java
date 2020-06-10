@@ -21,7 +21,8 @@ import java.util.List;
  */
 @Transactional
 @Service(value = "restaurantService")
-public class RestaurantServiceImpl implements RestaurantService
+public class RestaurantServiceImpl
+        implements RestaurantService
 {
     /**
      * Connects this service to the Restaurant Table.
@@ -38,20 +39,22 @@ public class RestaurantServiceImpl implements RestaurantService
          * iterate over the iterator set and add each element to an array list.
          */
         restrepos.findAll()
-            .iterator()
-            .forEachRemaining(list::add);
+                .iterator()
+                .forEachRemaining(list::add);
         return list;
     }
 
     @Override
-    public Restaurant findRestaurantById(long id) throws EntityNotFoundException
+    public Restaurant findRestaurantById(long id) throws
+            EntityNotFoundException
     {
         return restrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Restaurant " + id + " Not Found"));
     }
 
     @Override
-    public Restaurant findRestaurantByName(String name) throws EntityNotFoundException
+    public Restaurant findRestaurantByName(String name) throws
+            EntityNotFoundException
     {
         Restaurant restaurant = restrepos.findByName(name);
 

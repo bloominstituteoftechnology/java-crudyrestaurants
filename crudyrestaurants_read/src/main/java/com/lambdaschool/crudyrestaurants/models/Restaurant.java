@@ -2,7 +2,17 @@ package com.lambdaschool.crudyrestaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +34,7 @@ public class Restaurant
      * The name (String) of the restaurant. Cannot be null and must be unique.
      */
     @Column(unique = true,
-        nullable = false)
+            nullable = false)
     private String name;
 
     /**
@@ -48,12 +58,6 @@ public class Restaurant
     private String telephone;
 
     /**
-     * Used to determine if the field seatcapacity has been set or is NULL, meaning 0 for an integer value.
-     * Does not get saved to the database.
-     */
-    @Transient
-
-    /**
      * The seating capacity (integer) of the restaurant.
      * This was added to specifically show how to update fields that do not have a NULL value.
      */
@@ -65,8 +69,8 @@ public class Restaurant
      */
     @ManyToMany()
     @JoinTable(name = "restaurantpayments",
-        joinColumns = @JoinColumn(name = "restaurantid"),
-        inverseJoinColumns = @JoinColumn(name = "paymentid"))
+            joinColumns = @JoinColumn(name = "restaurantid"),
+            inverseJoinColumns = @JoinColumn(name = "paymentid"))
     @JsonIgnoreProperties(value = "restaurants")
     List<Payment> payments = new ArrayList<>();
 
@@ -75,8 +79,8 @@ public class Restaurant
      * Forms a One-To-Many relationship to menus. One restaurant to many menus.
      */
     @OneToMany(mappedBy = "restaurant",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnoreProperties(value = "restaurant")
     private List<Menu> menus = new ArrayList<>();
 
@@ -101,12 +105,12 @@ public class Restaurant
      *                     menus are added outside of this constructor.
      */
     public Restaurant(
-        String name,
-        String address,
-        String city,
-        String state,
-        String telephone,
-        int seatcapacity)
+            String name,
+            String address,
+            String city,
+            String state,
+            String telephone,
+            int seatcapacity)
     {
         this.name = name;
         this.address = address;
@@ -295,30 +299,6 @@ public class Restaurant
     public void setPayments(List<Payment> payments)
     {
         this.payments = payments;
-    }
-
-    /**
-     * Add one new payment type to this restaurant.
-     *
-     * @param payment The new payment (Payment) type to add.
-     */
-    public void addPayment(Payment payment)
-    {
-        payments.add(payment);
-        payment.getRestaurants()
-            .add(this);
-    }
-
-    /**
-     * Remove one payment type from this restaurant.
-     *
-     * @param payment The payment (Payment) type to remove.
-     */
-    public void removePayment(Payment payment)
-    {
-        payments.remove(payment);
-        payment.getRestaurants()
-            .remove(this);
     }
 
     /**
