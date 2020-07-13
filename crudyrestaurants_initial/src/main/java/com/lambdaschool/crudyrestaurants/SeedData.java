@@ -35,12 +35,6 @@
 //    @Autowired
 //    private PaymentService paymentService;
 //
-//
-//    /**
-//     * A Random generator is needed to randomly generate faker data.
-//     */
-//    private Random random = new Random();
-//
 //    /**
 //     * Generates test, seed data for our application
 //     * First a set of known data is seeded into our database.
@@ -91,11 +85,11 @@
 //                                  12.50,
 //                                  r1));
 //
-//            r1.getPayment()
+//            r1.getPayments()
 //                    .add(pay1);
-//            r1.getPayment()
+//            r1.getPayments()
 //                    .add(pay2);
-//            r1.getPayment()
+//            r1.getPayments()
 //                    .add(pay3);
 //            restaurantService.save(r1);
 //        }
@@ -115,7 +109,7 @@
 //                              12.75,
 //                              r2));
 //
-//        r2.getPayment()
+//        r2.getPayments()
 //                .add(pay3);
 //        restaurantService.save(r2);
 //
@@ -130,55 +124,11 @@
 //                              15.15,
 //                              r3));
 //
-//        r3.getPayment()
+//        r3.getPayments()
 //                .add(pay2);
-//        r3.getPayment()
+//        r3.getPayments()
 //                .add(pay3);
 //        restaurantService.save(r3);
 //
-//        // using JavaFaker create a bunch of regular users
-//        // https://www.baeldung.com/java-faker
-//        // https://www.baeldung.com/regular-expressions-java
-//
-//        Faker nameFaker = new Faker(new Locale("en-US"));
-//
-//        // this section gets a unique list of names
-//        Set<String> restNamesSet = new HashSet<>();
-//        for (int i = 0; i < 100; i++)
-//        {
-//            restNamesSet.add(nameFaker.starTrek()
-//                                     .location() + " Cafe");
-//        }
-//
-//        for (String restNames : restNamesSet)
-//        {
-//            Restaurant fakeRestaurant = new Restaurant(restNames,
-//                                                       nameFaker.address()
-//                                                               .streetAddress(),
-//                                                       nameFaker.address()
-//                                                               .cityName(),
-//                                                       nameFaker.address()
-//                                                               .stateAbbr(),
-//                                                       nameFaker.phoneNumber()
-//                                                               .cellPhone(),
-//                                                       74);
-//
-//            int randomNumber = random.nextInt(10) + 1; // random number 1 through 10
-//            for (int j = 0; j < randomNumber; j++)
-//            {
-//                fakeRestaurant.getMenus()
-//                        .add(new Menu(nameFaker.food()
-//                                              .dish(),
-//                                      nameFaker.number()
-//                                              .randomDouble(2,
-//                                                            1,
-//                                                            100),
-//                                      fakeRestaurant));
-//            }
-//
-//            fakeRestaurant.getPayment()
-//                    .add(pay1);
-//            restaurantService.save(fakeRestaurant);
-//        }
 //    }
 //}
