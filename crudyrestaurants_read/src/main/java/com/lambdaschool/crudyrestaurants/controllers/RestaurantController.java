@@ -1,7 +1,8 @@
 package com.lambdaschool.crudyrestaurants.controllers;
 
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
-import com.lambdaschool.crudyrestaurants.services.RestaurantService;
+import com.lambdaschool.crudyrestaurants.services.RestaurantServices;
+import com.lambdaschool.crudyrestaurants.views.MenuCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 /**
  * The entry point for clients to access restaurant data.
@@ -23,20 +25,20 @@ public class RestaurantController
      * Using the restaurant service to process restaurant data.
      */
     @Autowired
-    private RestaurantService restaurantService;
+    private RestaurantServices restaurantServices;
 
     /**
      * Returns a list of all restaurants.
      * <br>Example: <a href="http://localhost:2019/restaurants/restaurants">http://localhost:2019/restaurants/restaurants</a>.
      *
      * @return JSON list of all restaurants with a status of OK.
-     * @see RestaurantService#findAllRestaurants() RestaurantService.findAllRestaurants().
+     * @see RestaurantServices#findAllRestaurants() RestaurantServices.findAllRestaurants().
      */
     @GetMapping(value = "/restaurants",
-            produces = {"application/json"})
+        produces = {"application/json"})
     public ResponseEntity<?> listAllRestaurants()
     {
-        List<Restaurant> myRestaurants = restaurantService.findAllRestaurants();
+        List<Restaurant> myRestaurants = restaurantServices.findAllRestaurants();
         return new ResponseEntity<>(myRestaurants,
                                     HttpStatus.OK);
     }
@@ -47,15 +49,15 @@ public class RestaurantController
      *
      * @param restaurantId The primary key number of the restaurant you seek.
      * @return JSON of the restaurant you seek with a status of OK.
-     * @see RestaurantService#findRestaurantById(long) RestaurantService.findRestaurantById(long).
+     * @see RestaurantServices#findRestaurantById(long) RestaurantServices.findRestaurantById(long).
      */
     @GetMapping(value = "/restaurant/{restaurantId}",
-            produces = {"application/json"})
+        produces = {"application/json"})
     public ResponseEntity<?> getRestaurantById(
-            @PathVariable
-                    Long restaurantId)
+        @PathVariable
+            Long restaurantId)
     {
-        Restaurant r = restaurantService.findRestaurantById(restaurantId);
+        Restaurant r = restaurantServices.findRestaurantById(restaurantId);
         return new ResponseEntity<>(r,
                                     HttpStatus.OK);
     }
@@ -66,15 +68,15 @@ public class RestaurantController
      *
      * @param name The complete name of the restaurant you seek.
      * @return JSON of the restaurant you seek with a status of OK.
-     * @see RestaurantService#findRestaurantByName(String) RestaurantService.findRestaurantByName(String).
+     * @see RestaurantServices#findRestaurantByName(String) RestaurantServices.findRestaurantByName(String).
      */
     @GetMapping(value = "/restaurant/name/{name}",
-            produces = {"application/json"})
+        produces = {"application/json"})
     public ResponseEntity<?> getRestaurantByName(
-            @PathVariable
-                    String name)
+        @PathVariable
+            String name)
     {
-        Restaurant r = restaurantService.findRestaurantByName(name);
+        Restaurant r = restaurantServices.findRestaurantByName(name);
         return new ResponseEntity<>(r,
                                     HttpStatus.OK);
     }
@@ -85,15 +87,15 @@ public class RestaurantController
      *
      * @param findstate The two character abbreviation of the state where you want to local restaurants.
      * @return JSON list of the restaurants found in the specified state with a status of OK.
-     * @see RestaurantService#findByState(String) RestaurantService.findByState(String).
+     * @see RestaurantServices#findByState(String) RestaurantServices.findByState(String).
      */
     @GetMapping(value = "/restaurant/state/{findstate}",
-            produces = "application/json")
+        produces = "application/json")
     public ResponseEntity<?> findRestaurantByState(
-            @PathVariable
-                    String findstate)
+        @PathVariable
+            String findstate)
     {
-        List<Restaurant> rtnList = restaurantService.findByState(findstate);
+        List<Restaurant> rtnList = restaurantServices.findByState(findstate);
         return new ResponseEntity<>(rtnList,
                                     HttpStatus.OK);
     }
@@ -104,16 +106,52 @@ public class RestaurantController
      *
      * @param restname The substring in the restaurants' names that you seek.
      * @return JSON list of the restaurants found with the given substring in their name with a status of OK.
-     * @see RestaurantService#findByNameLike(String) RestaurantService.findByNameLike(String).
+     * @see RestaurantServices#findByNameLike(String) RestaurantServices.findByNameLike(String).
      */
     @GetMapping(value = "/restaurant/likename/{restname}",
-            produces = "application/json")
+        produces = "application/json")
     public ResponseEntity<?> findRestaurantByNameLike(
-            @PathVariable
-                    String restname)
+        @PathVariable
+            String restname)
     {
-        List<Restaurant> rtnList = restaurantService.findByNameLike(restname);
+        List<Restaurant> rtnList = restaurantServices.findByNameLike(restname);
         return new ResponseEntity<>(rtnList,
                                     HttpStatus.OK);
     }
+
+    /**
+     * Returns a list of restaurants whose menu contains the given dish
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/likedish/cake">http://localhost:2019/restaurants/restaurant/likedish/cake</a>.
+     *
+     * @param dishname The substring in the restaurants' menu dish that you seek.
+     * @return JSON list of the restaurants found with the given substring in their list of menu items with a status of OK.
+     * @see RestaurantServices#findByDish(String) RestaurantServices.findByDish(String)
+     */
+    @GetMapping(value = "/restaurant/likedish/{dishname}",
+            produces = "application/json")
+    public ResponseEntity<?> findRestaurantByDishLike(
+            @PathVariable
+                    String dishname)
+    {
+        List<Restaurant> rtnList = restaurantServices.findByDish(dishname);
+        return new ResponseEntity<>(rtnList,
+                                    HttpStatus.OK);
+    }
+
+    /**
+     * Returns a list of all restaurants with their menu counts
+     * <br>Example: <a href="http://localhost:2019/restaurants/menucounts">http://localhost:2019/restaurants/menucounts</a>.
+     *
+     * @return JSON list of all restaurants with their menu counts with a status of OK.
+     * @see RestaurantServices#getMenuCounts() () RestaurantServices.getMenuCounts().
+     */
+    @GetMapping(value = "/menucounts",
+            produces = {"application/json"})
+    public ResponseEntity<?> getMenuCounts()
+    {
+        List<MenuCounts> myList = restaurantServices.getMenuCounts();
+        return new ResponseEntity<>(myList,
+                                    HttpStatus.OK);
+    }
+
 }

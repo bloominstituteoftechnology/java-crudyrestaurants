@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * The CRUD Repository connecting Menu to rest of the application.
  */
-public interface MenuRepository
-        extends CrudRepository<Menu, Long>
+public interface MenuRepository extends CrudRepository<Menu, Long>
 {
 }

@@ -1,8 +1,7 @@
 package com.lambdaschool.crudyrestaurants.controllers;
 
 import com.lambdaschool.crudyrestaurants.models.Menu;
-import com.lambdaschool.crudyrestaurants.services.MenuService;
-import com.lambdaschool.crudyrestaurants.services.RestaurantService;
+import com.lambdaschool.crudyrestaurants.services.MenuServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,20 +22,20 @@ public class MenuController
      * Using the menu service to process menu data.
      */
     @Autowired
-    private MenuService menuService;
+    private MenuServices menuServices;
 
     /**
      * Returns a list of all menus.
      * <br>Example: <a href="http://localhost:2019/menus/menus">http://localhost:2019/menus/menus</a>.
      *
      * @return JSON list of all menus with a status of OK.
-     * @see RestaurantService#findAllRestaurants() MenuService.findAllMenus().
+     * @see MenuServices#findAllMenus() MenuServices.findAllMenus()
      */
     @GetMapping(value = "/menus",
-            produces = {"application/json"})
+        produces = {"application/json"})
     public ResponseEntity<?> listAllMenus()
     {
-        List<Menu> myMenus = menuService.findAllMenus();
+        List<Menu> myMenus = menuServices.findAllMenus();
         return new ResponseEntity<>(myMenus,
                                     HttpStatus.OK);
     }

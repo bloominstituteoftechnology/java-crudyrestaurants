@@ -2,15 +2,11 @@ package com.lambdaschool.crudyrestaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The entity allowing interaction with the payments table.
@@ -35,11 +31,11 @@ public class Payment
 
     /**
      * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
-     * Contains a List of Restaurant Objects using this Payment method.
+     * Contains a Set of Restaurant Objects using this Payment method.
      */
     @ManyToMany(mappedBy = "payments")
-    @JsonIgnoreProperties(value = "payments")
-    private List<Restaurant> restaurants = new ArrayList<>();
+    @JsonIgnoreProperties("payments")
+    private Set<Restaurant> restaurants = new HashSet<>();
 
     /**
      * Default Constructor used primarily by the JPA.
@@ -103,9 +99,9 @@ public class Payment
     /**
      * Getter for the Restaurants using this payment.
      *
-     * @return List of Restaurant objects using this payment.
+     * @return Set of Restaurant objects using this payment.
      */
-    public List<Restaurant> getRestaurants()
+    public Set<Restaurant> getRestaurants()
     {
         return restaurants;
     }
@@ -113,9 +109,9 @@ public class Payment
     /**
      * Setter for the Restaurants using this payment.
      *
-     * @param restaurants The new list of Restaurant objects using this payment.
+     * @param restaurants The new set of Restaurant objects using this payment.
      */
-    public void setRestaurants(List<Restaurant> restaurants)
+    public void setRestaurants(Set<Restaurant> restaurants)
     {
         this.restaurants = restaurants;
     }

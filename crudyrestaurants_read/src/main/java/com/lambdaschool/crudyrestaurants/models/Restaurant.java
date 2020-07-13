@@ -14,7 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The entity allowing interaction with the restaurants table.
@@ -65,14 +67,14 @@ public class Restaurant
 
     /**
      * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
-     * Contains a List of Payment Objects used by this restaurant.
+     * Contains a Set of Payment Objects used by this restaurant.
      */
     @ManyToMany()
     @JoinTable(name = "restaurantpayments",
             joinColumns = @JoinColumn(name = "restaurantid"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties(value = "restaurants")
-    List<Payment> payments = new ArrayList<>();
+    @JsonIgnoreProperties("restaurants")
+    Set<Payment> payments = new HashSet<>();
 
     /**
      * List of menus associated with this restaurant. Does not get saved in the database directly.
@@ -81,7 +83,7 @@ public class Restaurant
     @OneToMany(mappedBy = "restaurant",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JsonIgnoreProperties(value = "restaurant")
+    @JsonIgnoreProperties("restaurant")
     private List<Menu> menus = new ArrayList<>();
 
     /**
@@ -241,26 +243,6 @@ public class Restaurant
     }
 
     /**
-     * Getter for menus.
-     *
-     * @return A List of menus associated with the current restaurant.
-     */
-    public List<Menu> getMenus()
-    {
-        return menus;
-    }
-
-    /**
-     * Setter for menus.
-     *
-     * @param menus A new list of menus for this restaurant.
-     */
-    public void setMenus(List<Menu> menus)
-    {
-        this.menus = menus;
-    }
-
-    /**
      * Getter for seatcapacity.
      *
      * @return How many (integer) seats this restaurant has.
@@ -283,32 +265,40 @@ public class Restaurant
     /**
      * Getter for Payments.
      *
-     * @return The list of Payments used by this restaurant.
+     * @return The set of Payments used by this restaurant.
      */
-    public List<Payment> getPayments()
+    public Set<Payment> getPayments()
     {
         return payments;
     }
-
 
     /**
      * Setter for Payments.
      *
      * @param payments A new list of Payments to be used by this restaurant.
      */
-    public void setPayments(List<Payment> payments)
+    public void setPayments(Set<Payment> payments)
     {
         this.payments = payments;
     }
 
     /**
-     * Custom toString method.
+     * Getter for menus.
      *
-     * @return The restaurant id, name, address, city, state, telephone, seatcapacity, menus.toString, payments.toString
+     * @return A List of menus associated with the current restaurant.
      */
-    @Override
-    public String toString()
+    public List<Menu> getMenus()
     {
-        return "\n\tRestaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", seatcapacity=" + seatcapacity + ", menus=" + menus + ", payments=" + payments + '}';
+        return menus;
+    }
+
+    /**
+     * Setter for menus.
+     *
+     * @param menus A new list of menus for this restaurant.
+     */
+    public void setMenus(List<Menu> menus)
+    {
+        this.menus = menus;
     }
 }

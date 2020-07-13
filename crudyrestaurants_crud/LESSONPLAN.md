@@ -1,417 +1,211 @@
-### Entry Ticket
+#### Entry Ticket
 
 Please take a moment to reflect on what you have previously learned and hope to learn by completing this Google Survey. Remember your responses will be read by your instructor to help guide future lessons.
 
-* [Guided Project Entry Ticket](https://forms.gle/mww9yMHPGiXdMsXV6)
+* [Guided Project Entry Ticket](https://forms.gle/4cJNaTvjpxEhFacb7)
 
 #### Daily Resources
 
-* [Guided Project Starter](https://github.com/LambdaSchool/java-crudyrestaurants/tree/master/crudyrestaurants_read)
+* No Guided Project Starter - built from scratch
 * [Slido](https://app.sli.do/event/XXXXXXXX)
 * [Zoom like](https://lambdaschool.zoom.us/j/#########)
 
 #### Slack Message
 
 @channel
-For the Java class today, you can either begin with your guided project from yesterday or get my copy. My copy is the crudyrestaurants_read application found in the repo (https://github.com/LambdaSchool/java-crudyrestaurants.git).
-The Java Class will be starting in 3 minutes at (https://lambdaschool.zoom.us/j/#########)
+Let's do this! The Java Class will be starting in 3 minutes at (https://lambdaschool.zoom.us/j/#########)
 Please post questions to the Slido link at (https://app.sli.do/event/XXXXXXXX)
 
 ### Introduction and Hook
 
-Continuing our project from yesterday, we can read data, but how do we add, maintain that data? Let's keep learning.
+Backend API systems all work very similarly. The main difference between them is the data they process. Reading that data is an important process
+
+Reading means extracting the requested data from the database and returning that data in a standard JSON format. The frontend client is responsible for nicely displaying the data to the users.
+
+The Backend systems we develop be stand alone meaning that different frontend clients should be able to access our backend systems and expect the same results. Thus you can read Facebook posts from your a phone app, from a web browser, from a smart speaker, among other fontend systems.
 
 ### Purpose
 
-Develop a full CRUD application. Develop a full application where we can create (add) data, read that data, change (update) the data, and delete (remove) unwanted data.
+Develop a system to read data from a database.
 
 ### Learning Activities
 
 * Inside of IntelliJ, run the final version of the application.
-* Inside Postman, run each endpoint with the provided data and so the output.
-  * [Click here for predicted output and sample data to use for demonstration](https://github.com/LambdaSchool/java-crudyrestaurants/tree/master/crudyrestaurants_detele_save_update)
-  * POST http://localhost:2019/restaurants/restaurant
-  * PUT http://localhost:2019/restaurants/restaurant/13
-  * PUT http://localhost:2019/restaurants/restaurant/777
-  * PATCH http://localhost:2019/restaurants/restaurant/798
-  * PATCH http://localhost:2019/restaurants/restaurant/10
-  * DELETE http://localhost:2019/restaurants/restaurant/4
-  * DELETE http://localhost:2019/restaurants/restaurant/4444
-* Close the application in IntelliJ
-* Open the java-crudyrestaurant/crudyrestaurant_read application and begin from there.
+* Inside of Postman, Surf to each endpoint and show the output.
+  * [Predicted Output](https://github.com/LambdaSchool/java-crudyrestaurants/tree/master/crudyrestaurants_read)
+  * http://localhost:2019/menus/menus
+  * http://localhost:2019/restaurants/restaurants
+  * http://localhost:2019/restaurants/restaurant/3
+  * http://localhost:2019/restaurants/restaurant/77
+  * http://localhost:2019/restaurants/restaurant/name/Eagle%20Cafe
+  * http://localhost:2019/restaurants/restaurant/state/st
+  * http://localhost:2019/restaurants/restaurant/state/zz
+  * http://localhost:2019/restaurants/restaurant/likename/eat
+* Close the application in IntelliJ.
+* Create a new application in IntelliJ.
 
-#### Working with the objective: CRUD Creating and Replacing Data
+![Click on Create a Project](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%202%20-%20JX%20Java%20-%20Read%20Data%20using%20CRUD%20Operations%20including%20Seeding%20Data/assets/JX-SP11-M2-01.png)
 
-* Remember that you can use the Compare With on a folder (from the context menu) to see all the difference. Worth taking a look before class. And is useful to have open if you have the screen space!
+* Follow the wizard to create the application.
+  * Create a project with the Spring Frame.
 
-Start with the Restaurant Controller and work back through the Restaurant Service, Restaurant Service Implementation. The Restaurant Repository and Model are mostly done.
+![Select Spring Framework](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%202%20-%20JX%20Java%20-%20Read%20Data%20using%20CRUD%20Operations%20including%20Seeding%20Data/assets/JX-SP11-M2-02.png)
 
-Add the POST method Header:
+  * Name the project, picking the correct version of the JDK
 
-```JAVA
-    @PostMapping(value = "/restaurant",
-        consumes = {"application/json"})
-    public ResponseEntity<?> addNewRestaurant(
-        @Valid
-        @RequestBody
-            Restaurant newRestaurant)
-    {
-```
+![Select Name with Version 11](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%202%20-%20JX%20Java%20-%20Read%20Data%20using%20CRUD%20Operations%20including%20Seeding%20Data/assets/JX-SP11-M2-03.png)
 
-* POST is for adding a new restaurant. Adapted from POSTing a new message to a forum.
-* POST reads data from the RequestBody. We validate this data using @Valid.
-  * Jackson Dependencies added by Spring Boot converts the JSON to our Java Object
+  * Add the appropriate dependencies: Spring Boot DevTools, Spring Web, Spring Data JPA, H2 Database
 
-Add the call to save the data
+![Add dependencies](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%202%20-%20JX%20Java%20-%20Read%20Data%20using%20CRUD%20Operations%20including%20Seeding%20Data/assets/JX-SP11-M2-04.png)
 
-```JAVA
-        // ids are not recognized by the Post method
-        newRestaurant.setRestaurantid(0);
-        newRestaurant = restaurantService.save(newRestaurant);
-```
+  * Name the project file
+  * Note: jxwork is the folder where all guided project is stored for this cohort.
 
-Set the location header for the newly created resource
+![Name the project file](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%202%20-%20JX%20Java%20-%20Read%20Data%20using%20CRUD%20Operations%20including%20Seeding%20Data/assets/JX-SP11-M2-05.png)
 
-```JAVA
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
+* If a popup appears asking, select to make this a Maven Project.
 
-        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest() // get the URI for this request
-            .path("/{restaurantid}") // add to it a path variable
-            .buildAndExpand(newRestaurant.getRestaurantid()) // populate that path variable with the newly created restaurant id
-            .toUri(); // covert that work into a human readable URI
-        responseHeaders.setLocation(newRestaurantURI); // in the header, set the location header to that URI
-```
+* IF a popup appears asking, select to autoimport Maven dependencies.
 
-Return that header and a status of CREATED
+* In the `POM.XML` file, comment out the scope for H2 -
+  * this is needed to configure H2 database console and make H2 available in IntelliJ. We need H2 not only at runtime but also at compile time.
+  * Create the package structure.
 
-```JAVA
-        return new ResponseEntity<>(null,
-            responseHeaders,
-            HttpStatus.CREATED);
-    }
-```
+* Add the lines to the `application.properties`. Add the comments as well.
+  
+#### Working with the Objective: Perform CRUD operations on an RDBMS using JPA and Hibernate (reading)
 
-Now enter the method header for save in RestaurantService interface
+* Under the package crudyrestaurants, create the following subpackages
+  * `config` - Contains all the classes related to configurations. Nothing will be added here today
+  * `controller` - Contains the access points, endpoints, that can be used by clients.
+  * `models` - Contains the layouts of all data used in the application. This included persistent data that is saved to a database, and non-persistent data used only during application execution.
+  * `repositories` - Contains the links between the database and the application. Typically contains one class for each persistent, database, model.
+  * `services` - Contains the services that are used to retrieve and manipulate data in the application. Contains the contract stating what each client can do with the data in the application. The majority of the work of the application resides in this package.
 
-```JAVA
-<... other code ...>
-    Restaurant save(Restaurant restaurant);
-<... other code ...>
-```
+* Start with models (do not add `JsonIgnoreProperties` (except for `hasvalueseatcapacity` field) yet)
+  * Create the Restaurant model with the fields
+    * restaurantid
+    * name
+    * address
+    * city
+    * state
+    * telephone
+    * seatcapacity
+    * hasvalueforseatcapacity
+      * Remember to add this as @JsonIgnoreProperties before the class header
+      * Explain this will be used tomorrow
+  
+  * Create the menu model with the fields
+    * menuid
+    * dish
+    * price
+    * Do note that a restaurant can have duplicate menu entries. To prevent this would require implementation of custom queries which is beyond the scope of this module.
+  
+  * create the payment model with the fields
+    * paymentid
+    * type
 
-Enter the save method in RestaurantService Implementation. Notice we leave out the find restaurant by id section for now.
+#### Working with the objective: Explain and use Spring Data Relationships
 
-```JAVA
-<... other code ...>
-    @Transactional
-    @Override
-    public Restaurant save(Restaurant restaurant)
-    {
-        Restaurant newRestaurant = new Restaurant();
+  * Now generate the relations among the models. FetchType.LAZY is used to have data fetched from the database just when it is needed.
+  * This is not possible with ManyToMany as a join table is created and must contain all of the data.
+  * Hibernate Fetch strategies are not covered in depth in the unit. See Additional Resources for further explanations.
+  
+    * In the Restaurant model, create the ManyToMany relation from Restaurant to Payment
+    * In the Payment model, create the ManyToMany relation from Payment to Restaurant
+    * In the Restaurant model, create the OneToMany relation from Restaurant to Menu
+    * In the Menu model, create the ManyToOne relation from Restaurant to Menu
 
-        newRestaurant.setName(restaurant.getName());
-        newRestaurant.setAddress(restaurant.getAddress());
-        newRestaurant.setCity(restaurant.getCity());
-        newRestaurant.setState(restaurant.getState());
-        newRestaurant.setTelephone(restaurant.getTelephone());
-        newRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
+  * [Check for Understanding CFU - Google Form](https://forms.gle/6NUKdMm67Pr9x9TS8)
 
-        newRestaurant.getPayments()
-            .clear();
-        for (Payment p : restaurant.getPayments())
-        {
-            Payment newPay = paymentService.findPaymentById(p.getPaymentid());
+#### Back to Working with the Objective: Perform CRUD operations on an RDBMS using JPA and Hibernate (reading)
 
-            newRestaurant.addPayment(newPay);
-        }
+  * Generate constructors
+    * This is done via the context menu in IntelliJ
+    * Each class gets a default constructor - used by the JPA
+    * Each class gets its own constructor with parameters to be used by seeding data, and within the application outside of the JPA
 
-        newRestaurant.getMenus()
-            .clear();
-        for (Menu m : restaurant.getMenus())
-        {
-            Menu newMenu = new Menu(m.getDish(),
-                m.getPrice(),
-                newRestaurant);
+  * Generate Getters and Setters
+    * This is done via the context menu in IntelliJ
+    * Created for all fields - we need a setter for primary keys in seeding data
+    * In the Restaurant model, add the `hasvalueforseatcapacity` in the setter for `seatcapacity` fields. This will be used tomorrow.
 
-            newRestaurant.getMenus()
-                .add(newMenu);
-        }
+* Move to the repositories
+  * Inside of RestaurantRepository emphasize the creation of the JPA Queries `findByName`, `findByStateIgnoringCase`, `findByNameContainingIgnoringCase`
 
-        return restrepos.save(newRestaurant);
-<... other code ...>
-```
+* Move to the services
+  * Create the interface `RestaurantService`
+    * This is the contract between our application and our clients. This is what the clients are allowed to do with our data.
+    * We will implement the interface later.
 
-Notice the save method requires the PaymentService class so autowire it in
+* Move to the controllers
+  * Create the controller for Restaurants
 
-```JAVA
-<... other code ...>
-    @Autowired
-    private PaymentService paymentService;
-<... other code ...>
-```
+* Move back to the services
+  * Create the class `RestaurantServiceImp`
+  * Have this class implement `RestaurantService`
+  * Set this class as a service
+  * Generate from the IntelliJ context the override methods to implement
+  * implement the methods
 
-In PaymentService, we need access to findPaymentById (save is added for the SeedData class) so add to the PaymentService interface
+* [Check for Understanding CFU - Google Form](https://forms.gle/3fBvsJkPznCtBy9K7)
 
-```JAVA
-<... other code ...>
-    Payment findPaymentById(long id);
-<... other code ...>
-```
+#### Working with the objective: Implement seed data using SQL statements
 
-And finally add the code to PaymentService Implementation
+* Add the `data.sql` file. The file must be named `data.sql` and put in the `resources` folder for Spring Boot to recognize the file.
 
-```JAVA
-<... other code ...>
-    @Override
-    public Payment findPaymentById(long id)
-    {
-        return paymentrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Payment " + id + " Not Found"));
-    }
-<... other code ...>
-```
+* Point out that to turn off seeding with `data.sql`,
+  * In `application.properties`, set `spring.datasource.initialization-mode=never`
 
-Now add the PUT method to the RestaurantController
+* Run the program and surf to the endpoint `http://localhost:2019/restaurants/restaurants`.
 
-Now add the find restaurant by id section to the save method giving a final save method of
+* [Check for Understanding CFU - Google Form](https://forms.gle/CHaZHVtqH896bUxN7)
 
-```JAVA
-    @Transactional
-    @Override
-    public Restaurant save(Restaurant restaurant)
-    {
-        Restaurant newRestaurant = new Restaurant();
+#### Working with the objective: Use the JsonIgnoreProperties annotation to prevent infinite loops
 
-        if (restaurant.getRestaurantid() != 0)
-        {
-            restrepos.findById(restaurant.getRestaurantid())
-                .orElseThrow(() -> new EntityNotFoundException("Restaurant " + restaurant.getRestaurantid() + " Not Found"));
+* It will fail due to being in an infinite loop of access Restaurant, then Menu, then Restaurant, then Menu...
+* Go back and add JsonIgnoreProperties
+  * `Menu` in the ManyToOne relationship
+  * `Payment` in the ManyToMany relationship
+  * `Restaurant` in the ManyToMany relationship
+  * `Restaurant` in the OneToMany relationship
+* Run the program and surf to the endpoint `http://localhost:2019/restaurants/restaurants`.
 
-            newRestaurant.setRestaurantid(restaurant.getRestaurantid());
-        }
-
-        newRestaurant.setName(restaurant.getName());
-        newRestaurant.setAddress(restaurant.getAddress());
-        newRestaurant.setCity(restaurant.getCity());
-        newRestaurant.setState(restaurant.getState());
-        newRestaurant.setTelephone(restaurant.getTelephone());
-        newRestaurant.setSeatcapacity(restaurant.getSeatcapacity());
-
-        newRestaurant.getPayments()
-            .clear();
-        for (Payment p : restaurant.getPayments())
-        {
-            Payment newPay = paymentService.findPaymentById(p.getPaymentid());
-
-            newRestaurant.addPayment(newPay);
-        }
-
-        newRestaurant.getMenus()
-            .clear();
-        for (Menu m : restaurant.getMenus())
-        {
-            Menu newMenu = new Menu(m.getDish(),
-                m.getPrice(),
-                newRestaurant);
-
-            newRestaurant.getMenus()
-                .add(newMenu);
-        }
-
-        return restrepos.save(newRestaurant);
-    }
-```
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/gqZE1auPdx6Fs5HDA)
-
-#### use Postman to manually test Web APIs with all CRUD operations
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/huQqfCuGSNehZk3c8)
-
-#### Working with the objective: Understand and implement @Transactional annotation
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/qwDv4ERDweYzpL787)
-
-#### Working with the objective: CRUD Partially Updating Data
-
-Add hasvalueforseatcapacity to Restaurant Model including the JsonIgnoreProperties annotation
-
-Add the PATCH method to the RestaurantController
-
-Add Update to the RestaurantService Interface
-
-Add Update to the RestaurantService Implementation.
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/NPDe7pAwYkRFkX9n9)
-
-#### Working with the objective: CRUD Deleting Data
-
-Add the DELETE method to the RestaurantController
-
-Add Delete to the RestaurantService Interface
-
-Add Delete to the RestaurantService Implementation
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/1FNpsPr5v62NMJ3t9)
-
-#### Working with the objective: Data Seeding using Java Spring
-
-Add the Java class SeedData.java to the main package of the application.
-
-* The main package is the package where the main method is located
-* Add the code unrelated to Javafaker.
-  * No random value needed.
-  * Stop on the comment // using Javafaker
-* Stress how you comment out `@Component` annotation to keep this seed data from being added to the database.
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/ggpXt5mFNuSPjoLo6)
+* [Check for Understanding CFU - Google Forms](https://forms.gle/AfWENZbbq9h7Bufv7)
 
 #### Objectives If Time Allows
 
-#### Working with the objective: Mass Data Seeding
+##### Working with the objective: Use JPA constructs to create advanced queries
 
-First add the required dependency to the POM file
+* Show the error message you get with adding `Restaurant findByRestaurantName(String name);` to the `RestaurantRepository`
 
-```XML
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-```
+* [Check for Understanding CFU - Google Forms](https://forms.gle/aD66cduDMAkmmVEDA)
 
-Add the lines related to Javafaker found in SeedData including the random value!
+* At least show the final guided project solution to show students who to create multiple controllers and supporting code.
 
-* [Check for Understanding - Google Form](https://forms.gle/eniPU9eXpjWgA9YQ7)
+* Follow the steps to work with the menu table
+  * Services - Interface `MenuService`
+  * Controllers - `MenuController`
+  * Services - Interface Implementation `MenuServiceImpl`
 
-#### Working with the objective: Use H2 Console and H2 IntelliJ integration to explore data
+#### Conclusion
 
-* Time Permitting, show how to access the H2 database
-  * These configurations should be added to the `application.properties` file
+##### Review what we just learned
 
-```TEXT
-# Configurations useful for working with H2
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-```
+* How to create a Java Spring Application.
+* How to layout a Java Spring Application.
+* How to create read endpoints for a REST API.
+* How to seed data
+  * Using SQL
 
-Add this class in `config` package
+##### How is this related to tomorrow's topic
 
-```JAVA
-package com.lambdaschool.sampleemps.config;
-
-import org.h2.tools.Server;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.sql.SQLException;
-
-/**
- * Configures H2 access through the JetBrains IntelliJ IDEA IDE.
- *
- * Adapted from https://techdev.io/en/developer-blog/querying-the-embedded-h2-database-of-a-spring-boot-application
- * necessary for using the database tool built into intellij
- */
-@Configuration
-public class H2ServerConfiguration
-{
-
-    /**
-     * TCP port for remote connections, default 9092.
-     */
-    @Value("${h2.tcp.port:9092}")
-    private String h2TcpPort;
-
-    /**
-     * Web port, default 8082.
-     */
-    @Value("${h2.web.port:8082}")
-    private String h2WebPort;
-
-    /**
-     * TCP connection to connect with SQL clients to the embedded h2 database.
-     * <p>
-     * Connect to "jdbc:h2:tcp://localhost:9092/mem:testdb", username "sa", password empty.
-     *
-     * @return The created TcpServer needed to access H2.
-     * @throws SQLException If the server cannot be created.
-     */
-    @Bean
-    @ConditionalOnExpression("${h2.tcp.enabled:true}")
-    public Server h2TcpServer() throws SQLException
-    {
-        return Server.createTcpServer("-tcp",
-                                      "-tcpAllowOthers",
-                                      "-tcpPort",
-                                      h2TcpPort)
-                     .start();
-    }
-
-    /**
-     * Web console for the embedded h2 database.
-     * <p>
-     * Go to http://localhost:8082 and connect to the database "jdbc:h2:mem:testdb", username "sa", password empty.
-     *
-     * @return The created web server needed to access H2.
-     * @throws SQLException If the server cannot be created.
-     */
-    @Bean
-    @ConditionalOnExpression("${h2.web.enabled:true}")
-    public Server h2WebServer() throws SQLException
-    {
-        return Server.createWebServer("-web",
-                                      "-webAllowOthers",
-                                      "-webPort",
-                                      h2WebPort)
-                     .start();
-    }
-}
-```
-
-* POM entry was made in previous lesson
-  
-* Access the H2 database
-
-  * Must be done while the application is running - H2 is an in memory database and thus is only available when the application is running.
-  * Inside IntelliJ
-  
-![Gif using H2 in IntelliJ](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%203%20-%20JX%20Java%20-%20Inserting%20Deleting%20and%20Updating%20Data%20using%20CRUD%20Operations%20including%20generating%20Seed%20Data/assets/JX-SP11-M3-06.gif)
-
-  * Print Diagram
-
-![Gif using H2 in IntelliJ to Print Diagram](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%203%20-%20JX%20Java%20-%20Inserting%20Deleting%20and%20Updating%20Data%20using%20CRUD%20Operations%20including%20generating%20Seed%20Data/assets/JX-SP11-M3-08.gif)
-
-  * From the H2 console
-
-![Gif using H2 in Console](https://lambdaschool.github.io/java-curriculum-assets/Sprint%2011%20-%20Java%20with%20RDBMS%20and%20API%20Intros/Module%203%20-%20JX%20Java%20-%20Inserting%20Deleting%20and%20Updating%20Data%20using%20CRUD%20Operations%20including%20generating%20Seed%20Data/assets/JX-SP11-M3-07.gif)
-
-* [Check for Understanding CFU - Google Form](https://forms.gle/eqATYQvJS5hoUr818)
-
-## Closing
-
-### Conclusion
-
-#### Review what we just learned
-
-* How to create a full CRUD application
-* How to turn methods into single transactions
-* How to see data
-  * Using Java
-* How to generate random seed data
-* How to access your H2 database
-
-#### How is this related to tomorrow's topic
-
-* Revisit Many to Many Relationships where the join tables can have additional columns
-* How to audit when data is created or updated
-* When JPA Queries are not enough, how to use "raw" SQL in your application
+* Starting with this as the base project for tomorrow. We do not have to recreate the models and such!
+* We have done the R (read) in CRUD. Tomorrow we add the CUD (create, update, delete)!
 
 ### Exit Ticket
 
 Please take a moment to reflect on what you have learned in today's Guided Project. Remember your response will be read by your instructor to help guide future lessons.
 
-* [Guided Project Exit Ticket](https://forms.gle/dHZYs9er7T8mQbqg8)
+* [Guided Project Exit Ticket](https://forms.gle/nGErjznhbc81wY7w6)

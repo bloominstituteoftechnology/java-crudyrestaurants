@@ -2,9 +2,22 @@ package com.lambdaschool.crudyrestaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The entity allowing interaction with the restaurants table.
@@ -25,7 +38,7 @@ public class Restaurant
      * The name (String) of the restaurant. Cannot be null and must be unique.
      */
     @Column(unique = true,
-        nullable = false)
+            nullable = false)
     private String name;
 
     /**
@@ -63,25 +76,23 @@ public class Restaurant
 
     /**
      * Creates a join table joining Restaurants and Payments in a Many-To-Many relations.
-     * Contains a List of Payment Objects used by this restaurant.
+     * Contains a Set of Payment Objects used by this restaurant.
      */
     @ManyToMany()
     @JoinTable(name = "restaurantpayments",
-        joinColumns = @JoinColumn(name = "restaurantid"),
-        inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties(value = "restaurants",
-        allowSetters = true)
-    List<Payment> payments = new ArrayList<>();
+            joinColumns = @JoinColumn(name = "restaurantid"),
+            inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    @JsonIgnoreProperties("restaurants")
+    Set<Payment> payments = new HashSet<>();
 
     /**
      * List of menus associated with this restaurant. Does not get saved in the database directly.
      * Forms a One-To-Many relationship to menus. One restaurant to many menus.
      */
     @OneToMany(mappedBy = "restaurant",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    @JsonIgnoreProperties(value = "restaurant",
-        allowSetters = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties("restaurant")
     private List<Menu> menus = new ArrayList<>();
 
     /**
@@ -105,12 +116,12 @@ public class Restaurant
      *                     menus are added outside of this constructor.
      */
     public Restaurant(
-        String name,
-        String address,
-        String city,
-        String state,
-        String telephone,
-        int seatcapacity)
+            String name,
+            String address,
+            String city,
+            String state,
+            String telephone,
+            int seatcapacity)
     {
         this.name = name;
         this.address = address;
@@ -241,26 +252,6 @@ public class Restaurant
     }
 
     /**
-     * Getter for menus.
-     *
-     * @return A List of menus associated with the current restaurant.
-     */
-    public List<Menu> getMenus()
-    {
-        return menus;
-    }
-
-    /**
-     * Setter for menus.
-     *
-     * @param menus A new list of menus for this restaurant.
-     */
-    public void setMenus(List<Menu> menus)
-    {
-        this.menus = menus;
-    }
-
-    /**
      * Getter for seatcapacity.
      *
      * @return How many (integer) seats this restaurant has.
@@ -289,56 +280,40 @@ public class Restaurant
     /**
      * Getter for Payments.
      *
-     * @return The list of Payments used by this restaurant.
+     * @return The set of Payments used by this restaurant.
      */
-    public List<Payment> getPayments()
+    public Set<Payment> getPayments()
     {
         return payments;
     }
-
 
     /**
      * Setter for Payments.
      *
      * @param payments A new list of Payments to be used by this restaurant.
      */
-    public void setPayments(List<Payment> payments)
+    public void setPayments(Set<Payment> payments)
     {
         this.payments = payments;
     }
 
     /**
-     * Add one new payment type to this restaurant.
+     * Getter for menus.
      *
-     * @param payment The new payment (Payment) type to add.
+     * @return A List of menus associated with the current restaurant.
      */
-    public void addPayment(Payment payment)
+    public List<Menu> getMenus()
     {
-        payments.add(payment);
-        payment.getRestaurants()
-            .add(this);
+        return menus;
     }
 
     /**
-     * Remove one payment type from this restaurant.
+     * Setter for menus.
      *
-     * @param payment The payment (Payment) type to remove.
+     * @param menus A new list of menus for this restaurant.
      */
-    public void removePayment(Payment payment)
+    public void setMenus(List<Menu> menus)
     {
-        payments.remove(payment);
-        payment.getRestaurants()
-            .remove(this);
-    }
-
-    /**
-     * Custom toString method.
-     *
-     * @return The restaurant id, name, address, city, state, telephone, hasvalueforseatcapacity, seatcapacity, menus.toString, payments.toString
-     */
-    @Override
-    public String toString()
-    {
-        return "\n\tRestaurant{" + "restaurantid=" + restaurantid + ", name='" + name + '\'' + ", address='" + address + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", telephone='" + telephone + '\'' + ", hasvalueforseatcapacity=" + hasvalueforseatcapacity + ", seatcapacity=" + seatcapacity + ", menus=" + menus + ", payments=" + payments + '}';
+        this.menus = menus;
     }
 }

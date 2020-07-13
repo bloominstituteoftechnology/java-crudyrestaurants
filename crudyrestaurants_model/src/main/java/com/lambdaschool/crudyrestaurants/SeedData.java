@@ -1,5 +1,6 @@
 package com.lambdaschool.crudyrestaurants;
 
+import com.github.javafaker.Faker;
 import com.lambdaschool.crudyrestaurants.models.Menu;
 import com.lambdaschool.crudyrestaurants.models.Payment;
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
@@ -33,6 +34,11 @@ public class SeedData implements CommandLineRunner
      */
     @Autowired
     private PaymentService paymentService;
+
+    /**
+     * A Random generator is needed to randomly generate faker data.
+     */
+    private Random random = new Random();
 
     /**
      * Generates test, seed data for our application
@@ -169,12 +175,9 @@ public class SeedData implements CommandLineRunner
                                       fakeRestaurant));
             }
 
-            fakeRestaurant.getPayment()
+            fakeRestaurant.getPayments()
                     .add(pay1);
             restaurantService.save(fakeRestaurant);
         }
-    }
-}
-
     }
 }

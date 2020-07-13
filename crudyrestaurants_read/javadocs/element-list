@@ -4,3 +4,4 @@ com.lambdaschool.crudyrestaurants.controllers
 com.lambdaschool.crudyrestaurants.models
 com.lambdaschool.crudyrestaurants.repositories
 com.lambdaschool.crudyrestaurants.services
+com.lambdaschool.crudyrestaurants.views

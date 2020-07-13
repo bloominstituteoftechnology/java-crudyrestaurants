@@ -44,7 +44,7 @@ public class Menu
     @ManyToOne
     @JoinColumn(name = "restaurantid",
             nullable = false)
-    @JsonIgnoreProperties(value = "menus")
+    @JsonIgnoreProperties("menus")
     private Restaurant restaurant;
 
     /**
@@ -152,15 +152,5 @@ public class Menu
     {
         this.restaurant = restaurant;
     }
-
-    /**
-     * Custom toString method.
-     *
-     * @return String of menuid, dish, price, restaurant id, restaurant name.
-     */
-    @Override
-    public String toString()
-    {
-        return "\n\tMenu{" + "menuid=" + menuid + ", dish='" + dish + '\'' + ", price=" + price + ", restaurant id=" + restaurant.getRestaurantid() + ", restaurant name=" + restaurant.getName() + '}';
-    }
 }
+

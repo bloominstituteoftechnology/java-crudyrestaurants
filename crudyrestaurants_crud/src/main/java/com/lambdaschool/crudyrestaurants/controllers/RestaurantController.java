@@ -1,12 +1,21 @@
 package com.lambdaschool.crudyrestaurants.controllers;
 
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
-import com.lambdaschool.crudyrestaurants.services.RestaurantService;
+import com.lambdaschool.crudyrestaurants.services.RestaurantServices;
+import com.lambdaschool.crudyrestaurants.views.MenuCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -25,22 +34,22 @@ public class RestaurantController
      * Using the restaurant service to process restaurant data.
      */
     @Autowired
-    private RestaurantService restaurantService;
+    private RestaurantServices restaurantServices;
 
     /**
      * Returns a list of all restaurants.
      * <br>Example: <a href="http://localhost:2019/restaurants/restaurants">http://localhost:2019/restaurants/restaurants</a>.
      *
      * @return JSON list of all restaurants with a status of OK.
-     * @see RestaurantService#findAllRestaurants() RestaurantService.findAllRestaurants().
+     * @see RestaurantServices#findAllRestaurants() RestaurantServices.findAllRestaurants().
      */
     @GetMapping(value = "/restaurants",
         produces = {"application/json"})
     public ResponseEntity<?> listAllRestaurants()
     {
-        List<Restaurant> myRestaurants = restaurantService.findAllRestaurants();
+        List<Restaurant> myRestaurants = restaurantServices.findAllRestaurants();
         return new ResponseEntity<>(myRestaurants,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -49,7 +58,7 @@ public class RestaurantController
      *
      * @param restaurantId The primary key number of the restaurant you seek.
      * @return JSON of the restaurant you seek with a status of OK.
-     * @see RestaurantService#findRestaurantById(long) RestaurantService.findRestaurantById(long).
+     * @see RestaurantServices#findRestaurantById(long) RestaurantServices.findRestaurantById(long).
      */
     @GetMapping(value = "/restaurant/{restaurantId}",
         produces = {"application/json"})
@@ -57,9 +66,9 @@ public class RestaurantController
         @PathVariable
             Long restaurantId)
     {
-        Restaurant r = restaurantService.findRestaurantById(restaurantId);
+        Restaurant r = restaurantServices.findRestaurantById(restaurantId);
         return new ResponseEntity<>(r,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -68,7 +77,7 @@ public class RestaurantController
      *
      * @param name The complete name of the restaurant you seek.
      * @return JSON of the restaurant you seek with a status of OK.
-     * @see RestaurantService#findRestaurantByName(String) RestaurantService.findRestaurantByName(String).
+     * @see RestaurantServices#findRestaurantByName(String) RestaurantServices.findRestaurantByName(String).
      */
     @GetMapping(value = "/restaurant/name/{name}",
         produces = {"application/json"})
@@ -76,9 +85,9 @@ public class RestaurantController
         @PathVariable
             String name)
     {
-        Restaurant r = restaurantService.findRestaurantByName(name);
+        Restaurant r = restaurantServices.findRestaurantByName(name);
         return new ResponseEntity<>(r,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -87,7 +96,7 @@ public class RestaurantController
      *
      * @param findstate The two character abbreviation of the state where you want to local restaurants.
      * @return JSON list of the restaurants found in the specified state with a status of OK.
-     * @see RestaurantService#findByState(String) RestaurantService.findByState(String).
+     * @see RestaurantServices#findByState(String) RestaurantServices.findByState(String).
      */
     @GetMapping(value = "/restaurant/state/{findstate}",
         produces = "application/json")
@@ -95,9 +104,9 @@ public class RestaurantController
         @PathVariable
             String findstate)
     {
-        List<Restaurant> rtnList = restaurantService.findByState(findstate);
+        List<Restaurant> rtnList = restaurantServices.findByState(findstate);
         return new ResponseEntity<>(rtnList,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
     /**
@@ -106,7 +115,7 @@ public class RestaurantController
      *
      * @param restname The substring in the restaurants' names that you seek.
      * @return JSON list of the restaurants found with the given substring in their name with a status of OK.
-     * @see RestaurantService#findByNameLike(String) RestaurantService.findByNameLike(String).
+     * @see RestaurantServices#findByNameLike(String) RestaurantServices.findByNameLike(String).
      */
     @GetMapping(value = "/restaurant/likename/{restname}",
         produces = "application/json")
@@ -114,14 +123,49 @@ public class RestaurantController
         @PathVariable
             String restname)
     {
-        List<Restaurant> rtnList = restaurantService.findByNameLike(restname);
+        List<Restaurant> rtnList = restaurantServices.findByNameLike(restname);
         return new ResponseEntity<>(rtnList,
-            HttpStatus.OK);
+                                    HttpStatus.OK);
     }
 
-    /*
-     * New to delete save update
+    /**
+     * Returns a list of restaurants whose menu contains the given dish
+     * <br> Example: <a href="http://localhost:2019/restaurants/restaurant/likedish/cake">http://localhost:2019/restaurants/restaurant/likedish/cake</a>.
+     *
+     * @param dishname The substring in the restaurants' menu dish that you seek.
+     * @return JSON list of the restaurants found with the given substring in their list of menu items with a status of OK.
+     * @see RestaurantServices#findByDish(String) RestaurantServices.findByDish(String)
      */
+    @GetMapping(value = "/restaurant/likedish/{dishname}",
+            produces = "application/json")
+    public ResponseEntity<?> findRestaurantByDishLike(
+            @PathVariable
+                    String dishname)
+    {
+        List<Restaurant> rtnList = restaurantServices.findByDish(dishname);
+        return new ResponseEntity<>(rtnList,
+                                    HttpStatus.OK);
+    }
+
+    /**
+     * Returns a list of all restaurants with their menu counts
+     * <br>Example: <a href="http://localhost:2019/restaurants/menucounts">http://localhost:2019/restaurants/menucounts</a>.
+     *
+     * @return JSON list of all restaurants with their menu counts with a status of OK.
+     * @see RestaurantServices#getMenuCounts() () RestaurantServices.getMenuCounts().
+     */
+    @GetMapping(value = "/menucounts",
+            produces = {"application/json"})
+    public ResponseEntity<?> getMenuCounts()
+    {
+        List<MenuCounts> myList = restaurantServices.getMenuCounts();
+        return new ResponseEntity<>(myList,
+                                    HttpStatus.OK);
+    }
+
+    /****************************************
+     * New to crud
+     ****************************************/
 
     /**
      * Given a complete Restaurant Object, create a new Restaurant record and accompanying menu records
@@ -131,30 +175,30 @@ public class RestaurantController
      * @param newRestaurant A complete new restaurant to add including menus and payments.
      *                      Payments must already exist.
      * @return A location header with the URI to the newly created restaurant and a status of CREATED
-     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant)
+     * @see RestaurantServices#save(Restaurant) RestaurantServices.save(Restaurant)
      */
     @PostMapping(value = "/restaurant",
-        consumes = {"application/json"})
+            consumes = {"application/json"})
     public ResponseEntity<?> addNewRestaurant(
-        @Valid
-        @RequestBody
-            Restaurant newRestaurant)
+            @Valid
+            @RequestBody
+                    Restaurant newRestaurant)
     {
         // ids are not recognized by the Post method
         newRestaurant.setRestaurantid(0);
-        newRestaurant = restaurantService.save(newRestaurant);
+        newRestaurant = restaurantServices.save(newRestaurant);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{restaurantid}")
-            .buildAndExpand(newRestaurant.getRestaurantid())
-            .toUri();
+                .path("/{restaurantid}")
+                .buildAndExpand(newRestaurant.getRestaurantid())
+                .toUri();
         responseHeaders.setLocation(newRestaurantURI);
 
         return new ResponseEntity<>(null,
-            responseHeaders,
-            HttpStatus.CREATED);
+                                    responseHeaders,
+                                    HttpStatus.CREATED);
     }
 
     /**
@@ -168,19 +212,19 @@ public class RestaurantController
      *                         replace the Restaurant.
      * @param restaurantid     The primary key of the restaurant you wish to replace.
      * @return status of OK
-     * @see RestaurantService#save(Restaurant) RestaurantService.save(Restaurant)
+     * @see RestaurantServices#save(Restaurant) RestaurantServices.save(Restaurant)
      */
     @PutMapping(value = "/restaurant/{restaurantid}",
-        consumes = {"application/json"})
+            consumes = {"application/json"})
     public ResponseEntity<?> updateFullRestaurant(
-        @Valid
-        @RequestBody
-            Restaurant updateRestaurant,
-        @PathVariable
-            long restaurantid)
+            @Valid
+            @RequestBody
+                    Restaurant updateRestaurant,
+            @PathVariable
+                    long restaurantid)
     {
         updateRestaurant.setRestaurantid(restaurantid);
-        restaurantService.save(updateRestaurant);
+        restaurantServices.save(updateRestaurant);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -194,18 +238,18 @@ public class RestaurantController
      * @param updateRestaurant An object containing values for just the fields that are being updated. All other fields are left NULL.
      * @param restaurantid     The primary key of the restaurant you wish to update.
      * @return A status of OK
-     * @see RestaurantService#update(Restaurant, long) RestaurantService.update(Restaurant, long)
+     * @see RestaurantServices#update(Restaurant, long) RestaurantServices.update(Restaurant, long)
      */
     @PatchMapping(value = "/restaurant/{restaurantid}",
-        consumes = {"application/json"})
+            consumes = {"application/json"})
     public ResponseEntity<?> updateRestaurant(
-        @RequestBody
-            Restaurant updateRestaurant,
-        @PathVariable
-            long restaurantid)
+            @RequestBody
+                    Restaurant updateRestaurant,
+            @PathVariable
+                    long restaurantid)
     {
-        restaurantService.update(updateRestaurant,
-            restaurantid);
+        restaurantServices.update(updateRestaurant,
+                                 restaurantid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -215,14 +259,15 @@ public class RestaurantController
      *
      * @param restaurantid The primary key of the restaurant you wish to delete.
      * @return No body is returned. A status of OK is returned if the deletion is successful.
-     * @see RestaurantService#delete(long) RestaurantService.delete(long)
+     * @see RestaurantServices#delete(long) RestaurantServices.delete(long)
      */
     @DeleteMapping("/restaurant/{restaurantid}")
     public ResponseEntity<?> deleteRestaurantById(
-        @PathVariable
-            long restaurantid)
+            @PathVariable
+                    long restaurantid)
     {
-        restaurantService.delete(restaurantid);
+        restaurantServices.delete(restaurantid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

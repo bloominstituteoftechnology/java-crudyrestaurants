@@ -22,7 +22,9 @@ The table layouts are as follows
 
 ![Image of Database Layout](java-crudyrestaurant-read-db.png)
 
-Two different applications exist
+Four different applications exist
 
-- crudyrestaurants_read - Includes only reading data
-- crudyrestaurants_delete_save_update - Finishes the CRUD application by adding Creating, Updating, and Deleting
+- crudyrestaurants_initial - The beginnings of the application. The basic framework plus the Restaurant class
+- crudyrestaurants_model - The application will all the seed data added and the models for all of the tables
+- crudyrestaurants_read - The application with a representative group of GETs.
+- crudyrestaurants_crud - Finishes the CRUD application by adding Creating, Updating, and Deleting

@@ -2,7 +2,14 @@ package com.lambdaschool.crudyrestaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * The entity allowing interaction with the menus table.
@@ -36,9 +43,8 @@ public class Menu
      */
     @ManyToOne
     @JoinColumn(name = "restaurantid",
-        nullable = false)
-    @JsonIgnoreProperties(value = "menus",
-        allowSetters = true)
+            nullable = false)
+    @JsonIgnoreProperties("menus")
     private Restaurant restaurant;
 
     /**
@@ -58,9 +64,9 @@ public class Menu
      * @param restaurant The full restaurant object to which the menu item is assigned.
      */
     public Menu(
-        String dish,
-        double price,
-        Restaurant restaurant)
+            String dish,
+            double price,
+            Restaurant restaurant)
     {
         this.dish = dish;
         this.price = price;
@@ -146,15 +152,5 @@ public class Menu
     {
         this.restaurant = restaurant;
     }
-
-    /**
-     * Custom toString method.
-     *
-     * @return String of menuid, dish, price, restaurant id, restaurant name.
-     */
-    @Override
-    public String toString()
-    {
-        return "\n\tMenu{" + "menuid=" + menuid + ", dish='" + dish + '\'' + ", price=" + price + ", restaurant id=" + restaurant.getRestaurantid() + ", restaurant name=" + restaurant.getName() + '}';
-    }
 }
+
