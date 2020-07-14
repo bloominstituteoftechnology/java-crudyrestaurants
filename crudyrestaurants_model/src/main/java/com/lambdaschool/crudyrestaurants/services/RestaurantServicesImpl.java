@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements the RestaurantService Interface.
+ * Implements the RestaurantServices Interface.
  */
 @Transactional
 @Service(value = "restaurantService")
-public class RestaurantServiceImpl implements RestaurantService
+public class RestaurantServicesImpl
+        implements RestaurantServices
 {
     /**
      * Connects this service to the Restaurant Table.

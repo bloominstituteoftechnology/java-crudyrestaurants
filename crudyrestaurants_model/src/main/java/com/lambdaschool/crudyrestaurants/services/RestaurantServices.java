@@ -5,7 +5,7 @@ import com.lambdaschool.crudyrestaurants.models.Restaurant;
 /**
  * The Service that works with the Restaurant Model.
  */
-public interface RestaurantService
+public interface RestaurantServices
 {
     /**
      * Given a complete restaurant object, saves that restaurant object in the database.

@@ -238,4 +238,10 @@ public class RestaurantServicesImpl
 
         return restrepos.save(currentRestaurant);
     }
+
+    @Override
+    public void deleteAllRestaurants()
+    {
+        restrepos.deleteAll();
+    }
 }

@@ -98,4 +98,8 @@ List<Restaurant> findAllRestaurants();
      */
     Restaurant save(Restaurant restaurant);
 
+    /**
+     * Deletes are records
+     */
+    void deleteAllRestaurants();
 }

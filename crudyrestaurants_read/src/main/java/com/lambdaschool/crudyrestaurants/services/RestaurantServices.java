@@ -9,12 +9,13 @@ import java.util.List;
  * The Service that works with the Restaurant Model.
  */
 public interface RestaurantServices
-{    /**
- * Returns a list of all the restaurants.
- *
- * @return List of Restaurant. If no Restaurant, empty list.
- */
-List<Restaurant> findAllRestaurants();
+{
+    /**
+     * Returns a list of all the restaurants.
+     *
+     * @return List of Restaurant. If no Restaurant, empty list.
+     */
+    List<Restaurant> findAllRestaurants();
 
     /**
      * Returns the restaurant with the given primary key.

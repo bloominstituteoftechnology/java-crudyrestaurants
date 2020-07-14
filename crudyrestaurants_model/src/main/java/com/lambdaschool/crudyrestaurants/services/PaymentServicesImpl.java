@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements the PaymentService Interface.
+ * Implements the PaymentServices Interface.
  */
 @Transactional
 @Service(value = "paymentService")
-public class PaymentServiceImpl implements PaymentService
+public class PaymentServicesImpl
+        implements PaymentServices
 {
     /**
      * Connects this service to the Payment Table.

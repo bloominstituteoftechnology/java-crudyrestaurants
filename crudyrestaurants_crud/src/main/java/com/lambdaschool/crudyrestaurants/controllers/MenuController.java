@@ -2,6 +2,8 @@ package com.lambdaschool.crudyrestaurants.controllers;
 
 import com.lambdaschool.crudyrestaurants.models.Menu;
 import com.lambdaschool.crudyrestaurants.services.MenuServices;
+import com.lambdaschool.crudyrestaurants.services.PaymentServices;
+import com.lambdaschool.crudyrestaurants.services.RestaurantServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,12 @@ public class MenuController
      */
     @Autowired
     private MenuServices menuServices;
+
+    @Autowired
+    private PaymentServices paymentServices;
+
+    @Autowired
+    private RestaurantServices restaurantServices;
 
     /**
      * Returns a list of all menus.

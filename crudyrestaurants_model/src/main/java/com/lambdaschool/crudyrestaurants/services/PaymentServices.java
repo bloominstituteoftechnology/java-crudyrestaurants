@@ -5,7 +5,7 @@ import com.lambdaschool.crudyrestaurants.models.Payment;
 /**
  * The Service that works with the Payment Model.
  */
-public interface PaymentService
+public interface PaymentServices
 {
     /**
      * Given a complete payment object, saved that payment object in the database.
