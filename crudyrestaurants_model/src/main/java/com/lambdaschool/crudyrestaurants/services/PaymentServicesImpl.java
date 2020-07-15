@@ -20,6 +20,7 @@ public class PaymentServicesImpl
     @Autowired
     PaymentRepository paymentrepos;
 
+    @Transactional
     @Override
     public Payment save(Payment payment)
     {

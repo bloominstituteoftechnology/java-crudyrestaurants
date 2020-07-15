@@ -25,6 +25,7 @@ public class RestaurantServicesImpl
     @Autowired
     private RestaurantRepository restrepos;
 
+    @Transactional
     @Override
     public Restaurant save(Restaurant restaurant)
     {

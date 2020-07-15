@@ -40,7 +40,7 @@ public class MenuController
      * @see MenuServices#findAllMenus() MenuServices.findAllMenus()
      */
     @GetMapping(value = "/menus",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> listAllMenus()
     {
         List<Menu> myMenus = menuServices.findAllMenus();

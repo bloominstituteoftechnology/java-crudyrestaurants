@@ -94,6 +94,7 @@ public class RestaurantServicesImpl
         return list;
     }
 
+    @Transactional
     @Override
     public Restaurant save(Restaurant restaurant)
     {

@@ -35,7 +35,7 @@ public class RestaurantController
      * @see RestaurantServices#findAllRestaurants() RestaurantServices.findAllRestaurants().
      */
     @GetMapping(value = "/restaurants",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> listAllRestaurants()
     {
         List<Restaurant> myRestaurants = restaurantServices.findAllRestaurants();
@@ -52,7 +52,7 @@ public class RestaurantController
      * @see RestaurantServices#findRestaurantById(long) RestaurantServices.findRestaurantById(long).
      */
     @GetMapping(value = "/restaurant/{restaurantId}",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> getRestaurantById(
         @PathVariable
             Long restaurantId)
@@ -71,7 +71,7 @@ public class RestaurantController
      * @see RestaurantServices#findRestaurantByName(String) RestaurantServices.findRestaurantByName(String).
      */
     @GetMapping(value = "/restaurant/name/{name}",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> getRestaurantByName(
         @PathVariable
             String name)
@@ -146,7 +146,7 @@ public class RestaurantController
      * @see RestaurantServices#getMenuCounts() () RestaurantServices.getMenuCounts().
      */
     @GetMapping(value = "/menucounts",
-            produces = {"application/json"})
+            produces = "application/json")
     public ResponseEntity<?> getMenuCounts()
     {
         List<MenuCounts> myList = restaurantServices.getMenuCounts();

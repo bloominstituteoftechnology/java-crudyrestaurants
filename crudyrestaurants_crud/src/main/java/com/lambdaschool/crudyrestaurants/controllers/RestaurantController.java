@@ -44,7 +44,7 @@ public class RestaurantController
      * @see RestaurantServices#findAllRestaurants() RestaurantServices.findAllRestaurants().
      */
     @GetMapping(value = "/restaurants",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> listAllRestaurants()
     {
         List<Restaurant> myRestaurants = restaurantServices.findAllRestaurants();
@@ -61,7 +61,7 @@ public class RestaurantController
      * @see RestaurantServices#findRestaurantById(long) RestaurantServices.findRestaurantById(long).
      */
     @GetMapping(value = "/restaurant/{restaurantId}",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> getRestaurantById(
         @PathVariable
             Long restaurantId)
@@ -80,7 +80,7 @@ public class RestaurantController
      * @see RestaurantServices#findRestaurantByName(String) RestaurantServices.findRestaurantByName(String).
      */
     @GetMapping(value = "/restaurant/name/{name}",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> getRestaurantByName(
         @PathVariable
             String name)
@@ -155,7 +155,7 @@ public class RestaurantController
      * @see RestaurantServices#getMenuCounts() () RestaurantServices.getMenuCounts().
      */
     @GetMapping(value = "/menucounts",
-            produces = {"application/json"})
+            produces = "application/json")
     public ResponseEntity<?> getMenuCounts()
     {
         List<MenuCounts> myList = restaurantServices.getMenuCounts();
@@ -178,7 +178,7 @@ public class RestaurantController
      * @see RestaurantServices#save(Restaurant) RestaurantServices.save(Restaurant)
      */
     @PostMapping(value = "/restaurant",
-            consumes = {"application/json"})
+            consumes = "application/json")
     public ResponseEntity<?> addNewRestaurant(
             @Valid
             @RequestBody
@@ -215,7 +215,7 @@ public class RestaurantController
      * @see RestaurantServices#save(Restaurant) RestaurantServices.save(Restaurant)
      */
     @PutMapping(value = "/restaurant/{restaurantid}",
-            consumes = {"application/json"})
+            consumes = "application/json")
     public ResponseEntity<?> updateFullRestaurant(
             @Valid
             @RequestBody
@@ -241,7 +241,7 @@ public class RestaurantController
      * @see RestaurantServices#update(Restaurant, long) RestaurantServices.update(Restaurant, long)
      */
     @PatchMapping(value = "/restaurant/{restaurantid}",
-            consumes = {"application/json"})
+            consumes = "application/json")
     public ResponseEntity<?> updateRestaurant(
             @RequestBody
                     Restaurant updateRestaurant,

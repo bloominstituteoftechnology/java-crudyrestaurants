@@ -20,12 +20,14 @@ public class PaymentServicesImpl
     @Autowired
     PaymentRepository paymentrepos;
 
+    @Transactional
     @Override
     public Payment save(Payment payment)
     {
         return paymentrepos.save(payment);
     }
 
+    @Transactional
     @Override
     public void deleteAllPayments()
     {

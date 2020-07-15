@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Implements the MenuService Interface
  */
-@Transactional
 @Service(value = "menuService")
 public class MenuServicesImpl
         implements MenuServices

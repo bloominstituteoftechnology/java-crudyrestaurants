@@ -1,4 +1,7 @@
 DELETE
+from restaurantpayments;
+
+DELETE
 FROM payments;
 
 DELETE
