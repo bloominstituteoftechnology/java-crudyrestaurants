@@ -39,7 +39,9 @@ INSERT INTO menus (menuid, dish, price, restaurantid)
            (11, 'Pizza', 15.15, 3);
 
 /*
-Must tell hibernate of the id numbers already used.
-The number after with must be greater that the highest number id assigned.
+We must tell hibernate the ids that have already been used.
+The number must be larger than the last used id.
+15 > 11 so we are good!
  */
+
 alter sequence hibernate_sequence restart with 15;
