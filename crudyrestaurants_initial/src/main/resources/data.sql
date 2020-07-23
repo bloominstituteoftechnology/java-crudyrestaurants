@@ -34,7 +34,7 @@ INSERT INTO menus (menuid, dish, price, restaurantid)
            (6, 'Meatloaf', 7.77, 1),
            (7, 'Tacos', 8.49, 1),
            (8, 'Chef Salad', 12.50, 1),
-           (9, 'Tacos', 10.49, 2),
+           (9, 'Tacos Big', 10.49, 2),
            (10, 'Barbacoa', 12.75, 2),
            (11, 'Pizza', 15.15, 3);
 

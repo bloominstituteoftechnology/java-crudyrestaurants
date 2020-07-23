@@ -1,19 +1,17 @@
 package com.lambdaschool.crudyrestaurants.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The entity allowing interaction with the restaurants table.
  */
 @Entity
 @Table(name = "restaurants")
-public class Restaurant
-{
+public class Restaurant {
     /**
      * The primary key number (long) of the restaurants table.
      */
@@ -54,11 +52,18 @@ public class Restaurant
      */
     private int seatcapacity;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Menu> menus = new ArrayList<>();
+
+    @ManyToMany()
+    @JoinTable(name = "restaurantpayments", joinColumns = @JoinColumn(name = "restaurantid"),
+            inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    private Set<Payment> payments = new HashSet<>();
+
     /**
      * Default constructor used primarily by the JPA.
      */
-    public Restaurant()
-    {
+    public Restaurant() {
     }
 
     /**
@@ -80,8 +85,8 @@ public class Restaurant
             String city,
             String state,
             String telephone,
-            int seatcapacity)
-    {
+            int seatcapacity) {
+
         this.name = name;
         this.address = address;
         this.city = city;
@@ -95,8 +100,7 @@ public class Restaurant
      *
      * @return The primary key number (long) of the restaurant's table.
      */
-    public long getRestaurantid()
-    {
+    public long getRestaurantid() {
         return restaurantid;
     }
 
@@ -105,8 +109,7 @@ public class Restaurant
      *
      * @param restaurantid The new primary key number (long) of the restaurants table.
      */
-    public void setRestaurantid(long restaurantid)
-    {
+    public void setRestaurantid(long restaurantid) {
         this.restaurantid = restaurantid;
     }
 
@@ -115,8 +118,7 @@ public class Restaurant
      *
      * @return The name (String) of the Restaurant.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -125,8 +127,7 @@ public class Restaurant
      *
      * @param name The new name (String) of the Restaurant.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -135,8 +136,7 @@ public class Restaurant
      *
      * @return The address (String) of the Restaurant.
      */
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
@@ -145,8 +145,7 @@ public class Restaurant
      *
      * @param address The new address (String) for the Restaurant.
      */
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -155,8 +154,7 @@ public class Restaurant
      *
      * @return The city (String) where the restaurant is located.
      */
-    public String getCity()
-    {
+    public String getCity() {
         return city;
     }
 
@@ -165,8 +163,7 @@ public class Restaurant
      *
      * @param city The new city (String) of the restaurant.
      */
-    public void setCity(String city)
-    {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -175,8 +172,7 @@ public class Restaurant
      *
      * @return The state (String) of the current restaurant.
      */
-    public String getState()
-    {
+    public String getState() {
         return state;
     }
 
@@ -185,8 +181,7 @@ public class Restaurant
      *
      * @param state The new state (String) of the restaurant.
      */
-    public void setState(String state)
-    {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -195,8 +190,7 @@ public class Restaurant
      *
      * @return The telephone number (String) of the current restaurant.
      */
-    public String getTelephone()
-    {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -205,8 +199,7 @@ public class Restaurant
      *
      * @param telephone The new telephone number (String) for the restaurant.
      */
-    public void setTelephone(String telephone)
-    {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -215,8 +208,7 @@ public class Restaurant
      *
      * @return How many (integer) seats this restaurant has.
      */
-    public int getSeatcapacity()
-    {
+    public int getSeatcapacity() {
         return seatcapacity;
     }
 
@@ -225,8 +217,23 @@ public class Restaurant
      *
      * @param seatcapacity The new amount (integer) of seats this restaurant has.
      */
-    public void setSeatcapacity(int seatcapacity)
-    {
+    public void setSeatcapacity(int seatcapacity) {
         this.seatcapacity = seatcapacity;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
     }
 }
