@@ -1,5 +1,7 @@
 package com.lambdaschool.crudyrestaurants.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,13 +12,14 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long menuid;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String dish;
 
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "restaurantid", nullable=false)
+    @JsonIgnoreProperties("menus")
     private Restaurant restaurant;
 
     public Menu() {

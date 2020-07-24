@@ -1,5 +1,6 @@
 package com.lambdaschool.crudyrestaurants;
 
+import com.github.javafaker.Faker;
 import com.lambdaschool.crudyrestaurants.models.Menu;
 import com.lambdaschool.crudyrestaurants.models.Payment;
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
@@ -10,7 +11,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 
 /**
@@ -139,45 +143,45 @@ public class SeedData implements CommandLineRunner
         // https://www.baeldung.com/java-faker
         // https://www.baeldung.com/regular-expressions-java
 
-//        Faker nameFaker = new Faker(new Locale("en-US"));
-//
-//        // this section gets a unique list of names
-//        Set<String> restNamesSet = new HashSet<>();
-//        for (int i = 0; i < 100; i++)
-//        {
-//            restNamesSet.add(nameFaker.starTrek()
-//                                     .location() + " Cafe");
-//        }
-//
-//        for (String restNames : restNamesSet)
-//        {
-//            Restaurant fakeRestaurant = new Restaurant(restNames,
-//                                                       nameFaker.address()
-//                                                               .streetAddress(),
-//                                                       nameFaker.address()
-//                                                               .cityName(),
-//                                                       nameFaker.address()
-//                                                               .stateAbbr(),
-//                                                       nameFaker.phoneNumber()
-//                                                               .cellPhone(),
-//                                                       74);
-//
-//            int randomNumber = random.nextInt(10) + 1; // random number 1 through 10
-//            for (int j = 0; j < randomNumber; j++)
-//            {
-//                fakeRestaurant.getMenus()
-//                        .add(new Menu(nameFaker.food()
-//                                              .dish(),
-//                                      nameFaker.number()
-//                                              .randomDouble(2,
-//                                                            1,
-//                                                            100),
-//                                      fakeRestaurant));
-//            }
-//
-//            fakeRestaurant.getPayments()
-//                    .add(pay1);
-//            restaurantServices.save(fakeRestaurant);
-//        }
+        Faker nameFaker = new Faker(new Locale("en-US"));
+
+        // this section gets a unique list of names
+        Set<String> restNamesSet = new HashSet<>();
+        for (int i = 0; i < 100; i++)
+        {
+            restNamesSet.add(nameFaker.starTrek()
+                                     .location() + " Cafe");
+        }
+
+        for (String restNames : restNamesSet)
+        {
+            Restaurant fakeRestaurant = new Restaurant(restNames,
+                                                       nameFaker.address()
+                                                               .streetAddress(),
+                                                       nameFaker.address()
+                                                               .cityName(),
+                                                       nameFaker.address()
+                                                               .stateAbbr(),
+                                                       nameFaker.phoneNumber()
+                                                               .cellPhone(),
+                                                       74);
+
+            int randomNumber = random.nextInt(10) + 1; // random number 1 through 10
+            for (int j = 0; j < randomNumber; j++)
+            {
+                fakeRestaurant.getMenus()
+                        .add(new Menu(nameFaker.food()
+                                              .dish(),
+                                      nameFaker.number()
+                                              .randomDouble(2,
+                                                            1,
+                                                            100),
+                                      fakeRestaurant));
+            }
+
+            fakeRestaurant.getPayments()
+                    .add(pay1);
+            restaurantServices.save(fakeRestaurant);
+        }
     }
 }
