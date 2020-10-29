@@ -2,11 +2,9 @@ package com.lambdaschool.crudyrestaurants.repositories;
 
 import com.lambdaschool.crudyrestaurants.models.Restaurant;
 import com.lambdaschool.crudyrestaurants.views.MenuCounts;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +44,7 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long>
     /**
      * Custom Query to list the name of the restaurant and the number of menu items
      * in descending order by number of menu items
-     *
+     * <p>
      * SELECT r.name, count(menuid) as countmenus
      * FROM restaurants r LEFT JOIN menus m
      * ON r.restaurantid = m.restaurantid
@@ -54,9 +52,10 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long>
      * ORDER BY countmenus desc
      */
     @Query(value = "SELECT r.name as name, count(menuid) as countmenus " +
-                   "FROM restaurants r LEFT JOIN menus m " +
-                   "ON r.restaurantid = m.restaurantid " +
-                   "GROUP BY r.name " +
-                   "ORDER BY countmenus desc", nativeQuery = true)
+        "FROM restaurants r LEFT JOIN menus m " +
+        "ON r.restaurantid = m.restaurantid " +
+        "GROUP BY r.name " +
+        "ORDER BY countmenus desc",
+        nativeQuery = true)
     List<MenuCounts> findMenuCounts();
 }

@@ -82,7 +82,7 @@ public class Restaurant
     @JoinTable(name = "restaurantpayments",
             joinColumns = @JoinColumn(name = "restaurantid"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))
-    @JsonIgnoreProperties("restaurants")
+    @JsonIgnoreProperties(value = "restaurants", allowSetters = true)
     Set<Payment> payments = new HashSet<>();
 
     /**
@@ -92,7 +92,7 @@ public class Restaurant
     @OneToMany(mappedBy = "restaurant",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JsonIgnoreProperties("restaurant")
+    @JsonIgnoreProperties(value = "restaurant", allowSetters = true)
     private List<Menu> menus = new ArrayList<>();
 
     /**

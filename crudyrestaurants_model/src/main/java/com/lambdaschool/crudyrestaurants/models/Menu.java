@@ -1,13 +1,6 @@
 package com.lambdaschool.crudyrestaurants.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * The entity allowing interaction with the menus table.
@@ -41,7 +34,7 @@ public class Menu
      */
     @ManyToOne
     @JoinColumn(name = "restaurantid",
-            nullable = false)
+        nullable = false)
     private Restaurant restaurant;
 
     /**
@@ -61,9 +54,9 @@ public class Menu
      * @param restaurant The full restaurant object to which the menu item is assigned.
      */
     public Menu(
-            String dish,
-            double price,
-            Restaurant restaurant)
+        String dish,
+        double price,
+        Restaurant restaurant)
     {
         this.dish = dish;
         this.price = price;

@@ -1,16 +1,6 @@
 package com.lambdaschool.crudyrestaurants.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +24,7 @@ public class Restaurant
      * The name (String) of the restaurant. Cannot be null and must be unique.
      */
     @Column(unique = true,
-            nullable = false)
+        nullable = false)
     private String name;
 
     /**
@@ -69,8 +59,8 @@ public class Restaurant
      */
     @ManyToMany()
     @JoinTable(name = "restaurantpayments",
-            joinColumns = @JoinColumn(name = "restaurantid"),
-            inverseJoinColumns = @JoinColumn(name = "paymentid"))
+        joinColumns = @JoinColumn(name = "restaurantid"),
+        inverseJoinColumns = @JoinColumn(name = "paymentid"))
     Set<Payment> payments = new HashSet<>();
 
     /**
@@ -78,8 +68,8 @@ public class Restaurant
      * Forms a One-To-Many relationship to menus. One restaurant to many menus.
      */
     @OneToMany(mappedBy = "restaurant",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
 
     /**
@@ -103,12 +93,12 @@ public class Restaurant
      *                     menus are added outside of this constructor.
      */
     public Restaurant(
-            String name,
-            String address,
-            String city,
-            String state,
-            String telephone,
-            int seatcapacity)
+        String name,
+        String address,
+        String city,
+        String state,
+        String telephone,
+        int seatcapacity)
     {
         this.name = name;
         this.address = address;

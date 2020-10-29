@@ -1,9 +1,7 @@
 package com.lambdaschool.crudyrestaurants.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,7 +22,7 @@ public class Payment
      * The type (String) of payment. Cannot be null and must be unique.
      */
     @Column(nullable = false,
-            unique = true)
+        unique = true)
     private String type;
 
     /**

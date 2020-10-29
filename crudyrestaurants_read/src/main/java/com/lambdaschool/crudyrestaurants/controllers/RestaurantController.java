@@ -40,7 +40,7 @@ public class RestaurantController
     {
         List<Restaurant> myRestaurants = restaurantServices.findAllRestaurants();
         return new ResponseEntity<>(myRestaurants,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -59,7 +59,7 @@ public class RestaurantController
     {
         Restaurant r = restaurantServices.findRestaurantById(restaurantId);
         return new ResponseEntity<>(r,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -78,7 +78,7 @@ public class RestaurantController
     {
         Restaurant r = restaurantServices.findRestaurantByName(name);
         return new ResponseEntity<>(r,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -97,7 +97,7 @@ public class RestaurantController
     {
         List<Restaurant> rtnList = restaurantServices.findByState(findstate);
         return new ResponseEntity<>(rtnList,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -116,7 +116,7 @@ public class RestaurantController
     {
         List<Restaurant> rtnList = restaurantServices.findByNameLike(restname);
         return new ResponseEntity<>(rtnList,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -128,14 +128,14 @@ public class RestaurantController
      * @see RestaurantServices#findByDish(String) RestaurantServices.findByDish(String)
      */
     @GetMapping(value = "/restaurant/likedish/{dishname}",
-            produces = "application/json")
+        produces = "application/json")
     public ResponseEntity<?> findRestaurantByDishLike(
-            @PathVariable
-                    String dishname)
+        @PathVariable
+            String dishname)
     {
         List<Restaurant> rtnList = restaurantServices.findByDish(dishname);
         return new ResponseEntity<>(rtnList,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
@@ -146,12 +146,12 @@ public class RestaurantController
      * @see RestaurantServices#getMenuCounts() () RestaurantServices.getMenuCounts().
      */
     @GetMapping(value = "/menucounts",
-            produces = "application/json")
+        produces = "application/json")
     public ResponseEntity<?> getMenuCounts()
     {
         List<MenuCounts> myList = restaurantServices.getMenuCounts();
         return new ResponseEntity<>(myList,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 
 }

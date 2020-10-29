@@ -1,11 +1,6 @@
 package com.lambdaschool.crudyrestaurants.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * The entity allowing interaction with the restaurants table.
@@ -25,7 +20,7 @@ public class Restaurant
      * The name (String) of the restaurant. Cannot be null and must be unique.
      */
     @Column(unique = true,
-            nullable = false)
+        nullable = false)
     private String name;
 
     /**
@@ -75,12 +70,12 @@ public class Restaurant
      *                     menus are added outside of this constructor.
      */
     public Restaurant(
-            String name,
-            String address,
-            String city,
-            String state,
-            String telephone,
-            int seatcapacity)
+        String name,
+        String address,
+        String city,
+        String state,
+        String telephone,
+        int seatcapacity)
     {
         this.name = name;
         this.address = address;

@@ -37,6 +37,6 @@ public class MenuController
     {
         List<Menu> myMenus = menuServices.findAllMenus();
         return new ResponseEntity<>(myMenus,
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 }

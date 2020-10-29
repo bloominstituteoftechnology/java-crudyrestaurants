@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service(value = "restaurantService")
 public class RestaurantServicesImpl
-        implements RestaurantServices
+    implements RestaurantServices
 {
     /**
      * Connects this service to the Restaurant Table.
