@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.lambdaschool.crudyrestaurants"},{"l":"com.lambdaschool.crudyrestaurants.config"},{"l":"com.lambdaschool.crudyrestaurants.controllers"},{"l":"com.lambdaschool.crudyrestaurants.models"},{"l":"com.lambdaschool.crudyrestaurants.repositories"},{"l":"com.lambdaschool.crudyrestaurants.services"}]
