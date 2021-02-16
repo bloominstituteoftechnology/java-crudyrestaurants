@@ -10,7 +10,7 @@
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.stereotype.Component;
 //
-//import javax.transaction.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 //import java.util.HashSet;
 //import java.util.Locale;
 //import java.util.Random;

@@ -4,6 +4,7 @@ import com.lambdaschool.crudyrestaurants.models.Payment;
 import com.lambdaschool.crudyrestaurants.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,7 +28,7 @@ public class PaymentServicesImpl
         return paymentrepos.save(payment);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAllPayments()
     {

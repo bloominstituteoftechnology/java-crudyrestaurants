@@ -13,6 +13,7 @@ import com.lambdaschool.crudyrestaurants.repositories.RestaurantRepository;
 import com.lambdaschool.crudyrestaurants.views.MenuCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
@@ -239,7 +240,7 @@ public class RestaurantServicesImpl
         return restrepos.save(currentRestaurant);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAllRestaurants()
     {
