@@ -32,7 +32,7 @@ Develop a system to read data from a database.
 
 * Inside of IntelliJ, run the final version of the application.
 * Inside of Postman, Surf to each endpoint and show the output.
-  * [Predicted Output](https://github.com/LambdaSchool/java-crudyrestaurants/tree/master/crudyrestaurants_read)
+  * [Predicted Output](https://github.com/BloomInstituteOfTechnology/java-crudyrestaurants/tree/master/crudyrestaurants_read)
   * http://localhost:2019/menus/menus
   * http://localhost:2019/restaurants/restaurants
   * http://localhost:2019/restaurants/restaurant/3
